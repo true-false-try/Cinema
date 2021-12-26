@@ -12,8 +12,9 @@ public class Hall {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
+    @Enumerated(EnumType.STRING)
     @Column(name = "name", length = 30, nullable = false)
-    private String name;
+    private HallsList name;
 
     @OneToMany
     private Set<Seat> seats;
@@ -30,11 +31,11 @@ public class Hall {
         this.id = id;
     }
 
-    public String getName() {
+    public HallsList getName() {
         return name;
     }
 
-    public void setName(String name) {
+    public void setName(HallsList name) {
         this.name = name;
     }
 

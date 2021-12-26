@@ -17,13 +17,9 @@ public class Seat {
     @Column(name = "seat", length = 3, nullable = false)
     private int seat;
 
+    @Enumerated(EnumType.STRING)
     @Column(name = "status", length = 2, nullable = false)
-    // todo сделай это поле энамом
-    private int status;
-
-    @Column(name = "timeslot_id", length = 30, nullable = false)
-    // todo зачем тебе здесь это поле?
-    private int timeslotId;
+    private StatusSeatsList status;
 
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "hall_id")
@@ -57,20 +53,12 @@ public class Seat {
         this.seat = seat;
     }
 
-    public int getStatus() {
+    public StatusSeatsList getStatus() {
         return status;
     }
 
-    public void setStatus(int status) {
+    public void setStatus(StatusSeatsList status) {
         this.status = status;
-    }
-
-    public int getTimeslotId() {
-        return timeslotId;
-    }
-
-    public void setTimeslotId(int timeslotId) {
-        this.timeslotId = timeslotId;
     }
 
     public Hall getHalls() {
@@ -88,7 +76,6 @@ public class Seat {
                 ", row=" + row +
                 ", seat=" + seat +
                 ", status=" + status +
-                ", timeslotId=" + timeslotId +
                 ", halls=" + halls +
                 '}';
     }
