@@ -11,6 +11,7 @@ public class HallServiceImpl implements HallService{
     @Override
     public Set<Seat> showAvalibleSeat() {
         return null;
+        // null!!!!
     }
 
     @Override
