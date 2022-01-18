@@ -1,0 +1,6 @@
+databaseChangeLog:
+    # include create and insert manipulation with table halls
+    - include:
+        file: db.changelog/schema/createHall.yaml
+    - include:
+        file: db.changelog/data/insertHall.yaml

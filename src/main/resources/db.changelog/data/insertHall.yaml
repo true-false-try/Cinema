@@ -1,0 +1,18 @@
+databaseChangeLog:
+  - changeSet:
+      id: 2
+      author: Chekhovskyi
+      comment: "Create Test Hall"
+      changes:
+        - insert:
+            tableName: halls
+            columns:
+              - column:
+                  name: name
+                  value: "RED"
+        - insert:
+            tableName: halls
+            columns:
+              - column:
+                  name: name
+                  value: "BLACK"
