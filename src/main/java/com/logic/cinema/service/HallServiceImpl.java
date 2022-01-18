@@ -1,17 +1,20 @@
 package com.logic.cinema.service;
 
-import com.logic.cinema.model.Seat;
+import com.logic.cinema.dao.HallDAO;
+import com.logic.cinema.model.Hall;
+
 import org.springframework.stereotype.Service;
-import java.util.Set;
+
+import java.util.List;
+
 
 @Service
 public class HallServiceImpl implements HallService{
 
+    private HallDAO hallDAO;
 
-    @Override
-    public Set<Seat> showAvalibleSeat() {
-        return null;
-        // null!!!!
+    public HallServiceImpl() {
+
     }
 
     @Override
@@ -19,7 +22,9 @@ public class HallServiceImpl implements HallService{
         return null;
     }
 
-    public HallServiceImpl() {
-
+    @Override
+    public List<Hall> findAllHalls() {
+        return hallDAO.findAll();
     }
+
 }

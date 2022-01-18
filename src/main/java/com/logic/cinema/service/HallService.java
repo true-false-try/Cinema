@@ -1,12 +1,11 @@
 package com.logic.cinema.service;
 
-import com.logic.cinema.model.Seat;
-
-import java.util.Set;
+import com.logic.cinema.model.Hall;
+import java.util.List;
 
 public interface HallService {
 
-    Set<Seat> showAvalibleSeat();
-
     String statusHall(String hallName);
+
+    List<Hall> findAllHalls();
 }

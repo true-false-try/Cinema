@@ -1,13 +1,10 @@
 package com.logic.cinema.dao;
 
 import com.logic.cinema.model.Hall;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
-import javax.transaction.Transactional;
-import java.util.List;
 
 @Repository
-@Transactional
-public interface HallDAO  {
+public interface HallDAO extends JpaRepository<Hall, Long> {
 
-    List<Hall> getAllHalls();
 }
