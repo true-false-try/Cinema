@@ -2,8 +2,8 @@ package com.logic.cinema.model;
 
 import javax.persistence.*;
 
-@Entity
-@Table(name = "tickets")
+//@Entity
+//@Table(name = "tickets")
 public class Ticket {
 
     @Id

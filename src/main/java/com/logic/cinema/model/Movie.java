@@ -4,8 +4,8 @@ import javax.persistence.*;
 import java.sql.Date;
 import java.util.Set;
 
-@Entity
-@Table(name = "movies")
+//@Entity
+//@Table(name = "movies")
 public class Movie {
 
     @Id

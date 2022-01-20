@@ -1,0 +1,27 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1
+      author: Chekhovskyi
+      changes:
+        - createTable:
+            tableName: seats
+            columns:
+              - column:
+                  name: id
+                  type: INT
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: row
+                  type: INT
+              - column:
+                  name: seat
+                  type: INT
+              - column:
+                  name: status
+                  type: varchar(30)
+              - column:
+                  name: hall_id
+                  type: INT

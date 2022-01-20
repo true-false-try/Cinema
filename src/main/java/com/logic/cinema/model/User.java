@@ -3,8 +3,8 @@ package com.logic.cinema.model;
 import javax.persistence.*;
 import java.util.List;
 
-@Entity
-@Table(name="users")
+//@Entity
+//@Table(name="users")
 public class User {
 
     @Id

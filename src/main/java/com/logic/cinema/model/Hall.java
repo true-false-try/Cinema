@@ -16,7 +16,7 @@ public class Hall {
     @Column(name = "name", length = 30, nullable = false)
     private HallsList name;
 
-    @OneToMany
+    @OneToMany(mappedBy = "halls")
     private Set<Seat> seats;
 
     public Hall(){

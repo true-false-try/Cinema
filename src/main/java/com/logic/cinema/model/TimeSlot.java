@@ -6,8 +6,8 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Set;
 
-@Entity
-@Table(name = "timeslots")
+//@Entity
+//@Table(name = "timeslots")
 public class TimeSlot {
 
     @Transient
