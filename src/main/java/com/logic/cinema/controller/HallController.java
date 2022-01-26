@@ -15,6 +15,10 @@ public class HallController {
 
     private HallService hallService;
 
+    public HallController(HallService hallService) {
+        this.hallService = hallService;
+    }
+
     @GetMapping("/list")
     public List<Hall> allHalls(){
         return hallService.findAllHalls();

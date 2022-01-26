@@ -4,7 +4,7 @@ databaseChangeLog:
       author: Chekhovskyi
       changes:
         - createTable:
-            tableName: seats
+            tableName: tickets
             columns:
               - column:
                   name: id
@@ -14,14 +14,11 @@ databaseChangeLog:
                     primaryKey: true
                     nullable: false
               - column:
-                  name: row
-                  type: INT
+                  name: timeslot_id
+                  type: BIGINT
               - column:
-                  name: seat
-                  type: INT
+                  name: tariff_id
+                  type: BIGINT
               - column:
-                  name: status
-                  type: varchar(30)
-              - column:
-                  name: hall_id
+                  name: user_id
                   type: BIGINT

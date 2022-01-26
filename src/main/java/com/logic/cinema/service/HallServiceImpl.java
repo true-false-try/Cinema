@@ -11,10 +11,10 @@ import java.util.List;
 @Service
 public class HallServiceImpl implements HallService{
 
-    private HallDAO hallDAO;
+    private final HallDAO hallDAO;
 
-    public HallServiceImpl() {
-
+    public HallServiceImpl(HallDAO hallDAO) {
+        this.hallDAO = hallDAO;
     }
 
     @Override

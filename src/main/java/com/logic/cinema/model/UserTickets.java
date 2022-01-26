@@ -1,11 +1,10 @@
 package com.logic.cinema.model;
 
 import javax.persistence.*;
-import java.util.List;
 
 @Entity
-@Table(name = "tickets")
-public class Ticket {
+@Table(name = "user_tickets")
+public class UserTickets {
 
     @Id
     @Column(name = "id")
@@ -13,17 +12,14 @@ public class Ticket {
     private Long id;
 
     @OneToOne
-    @JoinColumn(name = "tariff_id")
-    private Tariff tariff;
-
-    @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
 
-    @OneToMany(mappedBy = "ticket")
-    private List<TimeSlot> timeSlot;
+    @OneToOne
+    @JoinColumn(name = "tickets_id")
+    private Ticket ticket;
 
-    public Ticket() {
+    public UserTickets() {
 
     }
 
@@ -35,14 +31,6 @@ public class Ticket {
         this.id = id;
     }
 
-    public Tariff getTariff() {
-        return tariff;
-    }
-
-    public void setTariff(Tariff tariff) {
-        this.tariff = tariff;
-    }
-
     public User getUser() {
         return user;
     }
@@ -51,24 +39,20 @@ public class Ticket {
         this.user = user;
     }
 
-    public List<TimeSlot> getTimeSlot() {
-        return timeSlot;
+    public Ticket getTicket() {
+        return ticket;
     }
 
-    public void setTimeSlot(List<TimeSlot> timeSlot) {
-        this.timeSlot = timeSlot;
+    public void setTicket(Ticket ticket) {
+        this.ticket = ticket;
     }
 
     @Override
     public String toString() {
-        return "Ticket{" +
+        return "UserTickets{" +
                 "id=" + id +
-                ", tariff=" + tariff +
                 ", user=" + user +
-                ", timeSlot=" + timeSlot +
+                ", ticket=" + ticket +
                 '}';
     }
 }
-
-
-

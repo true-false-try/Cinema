@@ -4,14 +4,14 @@ import javax.persistence.*;
 import java.sql.Date;
 import java.util.Set;
 
-//@Entity
-//@Table(name = "movies")
+@Entity
+@Table(name = "movies")
 public class Movie {
 
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private Long id;
 
     @Column(name = "name", length = 128, nullable = false)
     private String name;
@@ -38,21 +38,21 @@ public class Movie {
     private Date dateOfEndShowing;
 
     @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(name = "timeSlot_movie",
+    @JoinTable(name = "timeslots",
             joinColumns = {@JoinColumn(name = "movie_id")},
-            inverseJoinColumns = {@JoinColumn(name = "timeSlot_id")}
+            inverseJoinColumns = {@JoinColumn(name = "hall_id")}
     )
-    private Set<TimeSlot> timeSlot;
+    private Set<Hall> halls;
 
     public Movie() {
 
     }
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -120,12 +120,12 @@ public class Movie {
         this.dateOfEndShowing = dateOfEndShowing;
     }
 
-    public Set<TimeSlot> getTimeSlot() {
-        return timeSlot;
+    public Set<Hall> getTimeSlot() {
+        return halls;
     }
 
-    public void setTimeSlot(Set<TimeSlot> timeSlot) {
-        this.timeSlot = timeSlot;
+    public void setTimeSlot(Set<Hall> hall) {
+        this.halls = hall;
     }
 
     @Override
@@ -140,7 +140,7 @@ public class Movie {
                 ", genres='" + genres + '\'' +
                 ", dateOfStartShowing=" + dateOfStartShowing +
                 ", dateOfEndShowing=" + dateOfEndShowing +
-                ", timeSlot=" + timeSlot +
+                ", timeSlot=" + halls +
                 '}';
     }
 }

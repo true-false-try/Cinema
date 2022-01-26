@@ -1,0 +1,34 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1
+      author: Chekhovskyi
+      changes:
+        - createTable:
+            tableName: timeslots
+            columns:
+              - column:
+                  name: id
+                  type: BIGINT
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: start_time
+                  type: Time
+                  constraints:
+                    nullable: false
+              - column:
+                  name: end_time
+                  type: Time
+                  constraints:
+                    nullable: false
+              - column:
+                  name: hall_id
+                  type: BIGINT
+              - column:
+                  name: movie_id
+                  type: BIGINT
+              - column:
+                  name: ticket_id
+                  type: BIGINT

@@ -1,16 +1,16 @@
 package com.logic.cinema.model;
 
 import javax.persistence.*;
-import java.util.List;
+import java.util.Set;
 
-//@Entity
-//@Table(name="users")
+@Entity
+@Table(name="users")
 public class User {
 
     @Id
     @Column(name="id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private Long id;
 
     @Column(name = "name", length = 128, nullable = false)
     private String name;
@@ -25,17 +25,21 @@ public class User {
     private Integer age;
 
     @OneToMany
-    private List<Ticket> tickets;
+    @JoinTable(name = "user_tickets",
+            joinColumns = {@JoinColumn(name = "user_id")},
+            inverseJoinColumns = {@JoinColumn(name = "tickets_id")}
+    )
+    private Set<Ticket> tickets;
 
     public User() {
 
     }
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -71,11 +75,11 @@ public class User {
         this.age = age;
     }
 
-    public List<Ticket> getTicket() {
+    public Set<Ticket> getTicket() {
         return tickets;
     }
 
-    public void setTicket(List<Ticket> tickets) {
+    public void setTicket(Set<Ticket> tickets) {
         this.tickets = tickets;
     }
 

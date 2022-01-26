@@ -1,16 +1,16 @@
 package com.logic.cinema.model;
 
 import javax.persistence.*;
-import java.util.Set;
+import java.util.List;
 
-//@Entity
-//@Table(name = "tariffs")
+@Entity
+@Table(name = "tariffs")
 public class Tariff {
 
    @Id
    @Column(name = "id")
    @GeneratedValue(strategy = GenerationType.IDENTITY)
-   private Integer id;
+   private Long id;
 
    @Column(name = "name", length = 128, nullable = false)
    private String name;
@@ -18,19 +18,23 @@ public class Tariff {
    @Column(name = "cost", length = 10, nullable = false)
    private Double cost;
 
-   @OneToMany
-   @JoinColumn(name = "movie_id")
-   private Set<Movie> movie;
+   @ManyToMany(fetch = FetchType.LAZY)
+   @JoinTable(name = "tickets",
+           joinColumns = {@JoinColumn(name = "tariff_id")},
+           inverseJoinColumns = {@JoinColumn(name = "timeslot_id")}
+   )
+   private List<Ticket> ticketList;
+
 
    public Tariff() {
 
    }
 
-   public Integer getId() {
+   public Long getId() {
       return id;
    }
 
-   public void setId(Integer id) {
+   public void setId(Long id) {
       this.id = id;
    }
 
@@ -50,12 +54,12 @@ public class Tariff {
       this.cost = cost;
    }
 
-   public Set<Movie> getMovie() {
-      return movie;
+   public List<Ticket> getTicketList() {
+      return ticketList;
    }
 
-   public void setMovie(Set<Movie> movie) {
-      this.movie = movie;
+   public void setTicketList(List<Ticket> ticketList) {
+      this.ticketList = ticketList;
    }
 
    @Override
@@ -64,7 +68,7 @@ public class Tariff {
               "id=" + id +
               ", name='" + name + '\'' +
               ", cost=" + cost +
-              ", movie=" + movie +
+              ", ticketList=" + ticketList +
               '}';
    }
 }

@@ -10,24 +10,29 @@ public class Hall {
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private Long id;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "name", length = 30, nullable = false)
     private HallsList name;
 
+    @ManyToMany(fetch = FetchType.LAZY, mappedBy = "halls")
+    private Set<Movie> movies;
+
     @OneToMany(mappedBy = "halls")
     private Set<Seat> seats;
+
+
 
     public Hall(){
 
     }
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -37,6 +42,14 @@ public class Hall {
 
     public void setName(HallsList name) {
         this.name = name;
+    }
+
+    public Set<Movie> getMovies() {
+        return movies;
+    }
+
+    public void setMovies(Set<Movie> movies) {
+        this.movies = movies;
     }
 
     public Set<Seat> getSeats() {

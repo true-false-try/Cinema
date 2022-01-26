@@ -3,11 +3,9 @@ package com.logic.cinema.model;
 import javax.persistence.*;
 import java.sql.Time;
 import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.Set;
 
-//@Entity
-//@Table(name = "timeslots")
+@Entity
+@Table(name = "timeslots")
 public class TimeSlot {
 
     @Transient
@@ -16,7 +14,7 @@ public class TimeSlot {
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private Long id;
 
     @Column(name = "start_time", length = 10, nullable = false)
     private Time startTime;
@@ -28,12 +26,18 @@ public class TimeSlot {
     @JoinColumn(name = "hall_id")
     private Hall hall;
 
-    @ManyToMany(fetch = FetchType.LAZY, mappedBy = "timeSlot")
-    private Set<Movie> movies;
+    @OneToOne
+    @JoinColumn(name = "movie_id")
+    private Movie movie;
+
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "ticket_id")
+    private Ticket ticket;
 
     public TimeSlot(){
 
     }
+
 
     public SimpleDateFormat getSimpleDateFormat() {
         return simpleDateFormat;
@@ -43,11 +47,11 @@ public class TimeSlot {
         this.simpleDateFormat = simpleDateFormat;
     }
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -75,23 +79,32 @@ public class TimeSlot {
         this.hall = hall;
     }
 
-    public Set<Movie> getMovies() {
-        return movies;
+    public Movie getMovie() {
+        return movie;
     }
 
-    public void setMovies(Set<Movie> movies) {
-        this.movies = movies;
+    public void setMovie(Movie movie) {
+        this.movie = movie;
+    }
+
+    public Ticket getTicket() {
+        return ticket;
+    }
+
+    public void setTicket(Ticket ticket) {
+        this.ticket = ticket;
     }
 
     @Override
     public String toString() {
         return "TimeSlot{" +
                 "simpleDateFormat=" + simpleDateFormat +
-                ", id='" + id + '\'' +
+                ", id=" + id +
                 ", startTime=" + startTime +
                 ", endTime=" + endTime +
                 ", hall=" + hall +
-                ", movies=" + movies +
+                ", movie=" + movie +
+                ", ticket=" + ticket +
                 '}';
     }
 }
