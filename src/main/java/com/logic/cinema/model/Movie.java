@@ -1,7 +1,7 @@
 package com.logic.cinema.model;
 
 import javax.persistence.*;
-import java.sql.Date;
+import java.time.LocalTime;
 import java.util.Set;
 
 @Entity
@@ -31,11 +31,8 @@ public class Movie {
     @Column(name = "genres", length = 50, nullable = false)
     private String genres;
 
-    @Column(name = "date_of_start_showing")
-    private Date dateOfStartShowing;
-
-    @Column(name = "date_of_end_showing")
-    private Date dateOfEndShowing;
+    @Column(name = "movie_time")
+    private LocalTime movie_time;
 
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "timeslots",
@@ -104,20 +101,20 @@ public class Movie {
         this.genres = genres;
     }
 
-    public Date getDateOfStartShowing() {
-        return dateOfStartShowing;
+    public LocalTime getMovie_time() {
+        return movie_time;
     }
 
-    public void setDateOfStartShowing(Date dateOfStartShowing) {
-        this.dateOfStartShowing = dateOfStartShowing;
+    public void setMovie_time(LocalTime movie_time) {
+        this.movie_time = movie_time;
     }
 
-    public Date getDateOfEndShowing() {
-        return dateOfEndShowing;
+    public Set<Hall> getHalls() {
+        return halls;
     }
 
-    public void setDateOfEndShowing(Date dateOfEndShowing) {
-        this.dateOfEndShowing = dateOfEndShowing;
+    public void setHalls(Set<Hall> halls) {
+        this.halls = halls;
     }
 
     public Set<Hall> getTimeSlot() {
@@ -138,9 +135,8 @@ public class Movie {
                 ", rating=" + rating +
                 ", type='" + type + '\'' +
                 ", genres='" + genres + '\'' +
-                ", dateOfStartShowing=" + dateOfStartShowing +
-                ", dateOfEndShowing=" + dateOfEndShowing +
-                ", timeSlot=" + halls +
+                ", movie_time=" + movie_time +
+                ", halls=" + halls +
                 '}';
     }
 }

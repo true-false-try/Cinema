@@ -40,14 +40,7 @@ databaseChangeLog:
                   constraints:
                     nullable: false
               - column:
-                  name: date_of_start_showing
-                  type: date
+                  name: movie_time
+                  type: Time
                   constraints:
                     nullable: false
-              - column:
-                  name: date_of_end_showing
-                  type: date
-                  constraints:
-                    nullable: false
-
-
