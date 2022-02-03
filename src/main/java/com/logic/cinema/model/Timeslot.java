@@ -1,12 +1,13 @@
 package com.logic.cinema.model;
 
 import javax.persistence.*;
-import java.sql.Time;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.LocalTime;
 
 @Entity
 @Table(name = "timeslots")
-public class TimeSlot {
+public class Timeslot {
 
     @Transient
     SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd.M.yyyy");
@@ -16,15 +17,14 @@ public class TimeSlot {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(name = "date", length = 10, nullable = false)
+    private LocalDate date;
+
     @Column(name = "start_time", length = 10, nullable = false)
-    private Time startTime;
+    private LocalTime startTime;
 
     @Column(name = "end_time", length = 10, nullable = false)
-    private Time endTime;
-
-    @OneToOne
-    @JoinColumn(name = "hall_id")
-    private Hall hall;
+    private LocalTime endTime;
 
     @OneToOne
     @JoinColumn(name = "movie_id")
@@ -34,7 +34,9 @@ public class TimeSlot {
     @JoinColumn(name = "ticket_id")
     private Ticket ticket;
 
-    public TimeSlot(){
+
+
+    public Timeslot(){
 
     }
 
@@ -55,29 +57,30 @@ public class TimeSlot {
         this.id = id;
     }
 
-    public Time getStartTime() {
+    public LocalDate getDate() {
+        return date;
+    }
+
+    public void setDate(LocalDate date) {
+        this.date = date;
+    }
+
+    public LocalTime getStartTime() {
         return startTime;
     }
 
-    public void setStartTime(Time startTime) {
+    public void setStartTime(LocalTime startTime) {
         this.startTime = startTime;
     }
 
-    public Time getEndTime() {
+    public LocalTime getEndTime() {
         return endTime;
     }
 
-    public void setEndTime(Time endTime) {
+    public void setEndTime(LocalTime endTime) {
         this.endTime = endTime;
     }
 
-    public Hall getHall() {
-        return hall;
-    }
-
-    public void setHall(Hall hall) {
-        this.hall = hall;
-    }
 
     public Movie getMovie() {
         return movie;
@@ -97,12 +100,12 @@ public class TimeSlot {
 
     @Override
     public String toString() {
-        return "TimeSlot{" +
+        return "Timeslot{" +
                 "simpleDateFormat=" + simpleDateFormat +
                 ", id=" + id +
+                ", date=" + date +
                 ", startTime=" + startTime +
                 ", endTime=" + endTime +
-                ", hall=" + hall +
                 ", movie=" + movie +
                 ", ticket=" + ticket +
                 '}';

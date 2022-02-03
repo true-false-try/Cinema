@@ -7,3 +7,7 @@ databaseChangeLog:
         file: db.changelog/data/insertHall.yaml
     - include:
           file: db.changelog/data/insertMovie.yaml
+    - include:
+          file: db.changelog/data/insertTimeslot.yaml
+    - include:
+        file: db.changelog/data/insertSeat.yaml

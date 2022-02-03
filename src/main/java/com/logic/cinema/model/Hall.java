@@ -1,10 +1,16 @@
 package com.logic.cinema.model;
 
+import com.fasterxml.jackson.annotation.*;
+
 import javax.persistence.*;
 import java.util.Set;
 
 @Entity
 @Table(name = "halls")
+// @JsonIdentityInfo - use for solve the problem with recursion, when we use @OneToMany @ManyToOne
+@JsonIdentityInfo(
+        generator = ObjectIdGenerators.PropertyGenerator.class,
+        property = "id")
 public class Hall {
 
     @Id
@@ -16,10 +22,11 @@ public class Hall {
     @Column(name = "name", length = 30, nullable = false)
     private HallsList name;
 
-    @ManyToMany(fetch = FetchType.LAZY, mappedBy = "halls")
-    private Set<Movie> movies;
+    @OneToOne
+    @JoinColumn(name = "movie_id")
+    private Movie movie;
 
-    @OneToMany(mappedBy = "halls")
+    @OneToMany(mappedBy = "hall",cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Set<Seat> seats;
 
 
@@ -44,12 +51,12 @@ public class Hall {
         this.name = name;
     }
 
-    public Set<Movie> getMovies() {
-        return movies;
+    public Movie getMovies() {
+        return movie;
     }
 
-    public void setMovies(Set<Movie> movies) {
-        this.movies = movies;
+    public void setMovies(Movie movies) {
+        this.movie = movie;
     }
 
     public Set<Seat> getSeats() {

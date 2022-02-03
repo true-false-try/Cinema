@@ -14,6 +14,11 @@ databaseChangeLog:
                     primaryKey: true
                     nullable: false
               - column:
+                  name: date
+                  type: Date
+                  constraints:
+                    nullable: false
+              - column:
                   name: start_time
                   type: Time
                   constraints:
@@ -23,9 +28,7 @@ databaseChangeLog:
                   type: Time
                   constraints:
                     nullable: false
-              - column:
-                  name: hall_id
-                  type: BIGINT
+
               - column:
                   name: movie_id
                   type: BIGINT

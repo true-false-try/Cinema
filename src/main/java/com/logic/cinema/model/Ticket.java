@@ -21,7 +21,7 @@ public class Ticket {
     private User user;
 
     @OneToMany(mappedBy = "ticket")
-    private List<TimeSlot> timeSlot;
+    private List<Timeslot> timeSlot;
 
     public Ticket() {
 
@@ -51,11 +51,11 @@ public class Ticket {
         this.user = user;
     }
 
-    public List<TimeSlot> getTimeSlot() {
+    public List<Timeslot> getTimeSlot() {
         return timeSlot;
     }
 
-    public void setTimeSlot(List<TimeSlot> timeSlot) {
+    public void setTimeSlot(List<Timeslot> timeSlot) {
         this.timeSlot = timeSlot;
     }
 

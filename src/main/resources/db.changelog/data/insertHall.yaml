@@ -10,9 +10,15 @@ databaseChangeLog:
               - column:
                   name: name
                   value: "RED"
+              - column:
+                  name: movie_id
+                  value: 1
         - insert:
             tableName: halls
             columns:
               - column:
                   name: name
                   value: "BLACK"
+              - column:
+                  name: movie_id
+                  value: 2

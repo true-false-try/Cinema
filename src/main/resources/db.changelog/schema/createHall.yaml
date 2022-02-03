@@ -19,3 +19,6 @@ databaseChangeLog:
                   constraints:
                     unique: true
                     nullable: false
+              - column:
+                  name: movie_id
+                  type: BIGINT

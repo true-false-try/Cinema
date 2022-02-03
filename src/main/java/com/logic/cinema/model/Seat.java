@@ -1,9 +1,15 @@
 package com.logic.cinema.model;
 
+import com.fasterxml.jackson.annotation.*;
+
 import javax.persistence.*;
 
 @Entity
 @Table(name = "seats")
+// @JsonIdentityInfo - use for solve the problem with recursion, when we use @OneToMany @ManyToOne
+@JsonIdentityInfo(
+        generator = ObjectIdGenerators.PropertyGenerator.class,
+        property = "id")
 public class Seat {
 
     @Id
@@ -21,9 +27,9 @@ public class Seat {
     @Column(name = "status", length = 2, nullable = false)
     private StatusSeatsList status;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
     @JoinColumn(name = "hall_id")
-    private Hall halls;
+    private Hall hall;
 
     public Seat() {
 
@@ -62,11 +68,11 @@ public class Seat {
     }
 
     public Hall getHalls() {
-        return halls;
+        return hall;
     }
 
     public void setHalls(Hall halls) {
-        this.halls = halls;
+        this.hall = halls;
     }
 
     @Override
@@ -76,7 +82,7 @@ public class Seat {
                 ", row=" + row +
                 ", seat=" + seat +
                 ", status=" + status +
-                ", halls=" + halls +
+                ", halls=" + hall +
                 '}';
     }
 }

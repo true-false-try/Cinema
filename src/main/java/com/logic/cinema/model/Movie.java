@@ -2,7 +2,6 @@ package com.logic.cinema.model;
 
 import javax.persistence.*;
 import java.time.LocalTime;
-import java.util.Set;
 
 @Entity
 @Table(name = "movies")
@@ -33,13 +32,6 @@ public class Movie {
 
     @Column(name = "movie_time")
     private LocalTime movie_time;
-
-    @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(name = "timeslots",
-            joinColumns = {@JoinColumn(name = "movie_id")},
-            inverseJoinColumns = {@JoinColumn(name = "hall_id")}
-    )
-    private Set<Hall> halls;
 
     public Movie() {
 
@@ -109,21 +101,6 @@ public class Movie {
         this.movie_time = movie_time;
     }
 
-    public Set<Hall> getHalls() {
-        return halls;
-    }
-
-    public void setHalls(Set<Hall> halls) {
-        this.halls = halls;
-    }
-
-    public Set<Hall> getTimeSlot() {
-        return halls;
-    }
-
-    public void setTimeSlot(Set<Hall> hall) {
-        this.halls = hall;
-    }
 
     @Override
     public String toString() {
@@ -136,7 +113,6 @@ public class Movie {
                 ", type='" + type + '\'' +
                 ", genres='" + genres + '\'' +
                 ", movie_time=" + movie_time +
-                ", halls=" + halls +
                 '}';
     }
 }
