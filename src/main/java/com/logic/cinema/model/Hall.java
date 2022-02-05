@@ -23,8 +23,9 @@ public class Hall {
     private HallsList name;
 
     @OneToOne
-    @JoinColumn(name = "movie_id")
-    private Movie movie;
+    @JoinColumn(name = "timeslot_id")
+    private Timeslot timeslot;
+
 
     @OneToMany(mappedBy = "hall",cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Set<Seat> seats;
@@ -51,12 +52,12 @@ public class Hall {
         this.name = name;
     }
 
-    public Movie getMovies() {
-        return movie;
+    public Timeslot getMovies() {
+        return timeslot;
     }
 
-    public void setMovies(Movie movies) {
-        this.movie = movie;
+    public void setMovies(Timeslot timeslot) {
+        this.timeslot = timeslot;
     }
 
     public Set<Seat> getSeats() {
@@ -70,8 +71,9 @@ public class Hall {
     @Override
     public String toString() {
         return "Hall{" +
-                "id='" + id + '\'' +
-                ", name='" + name + '\'' +
+                "id=" + id +
+                ", name=" + name +
+                ", timeslot=" + timeslot +
                 ", seats=" + seats +
                 '}';
     }

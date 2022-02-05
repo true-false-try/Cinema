@@ -1,16 +1,25 @@
 package com.logic.cinema.model;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+
+
 import javax.persistence.*;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.time.temporal.ChronoUnit;
 
 @Entity
 @Table(name = "timeslots")
+// @JsonIdentityInfo - use for solve the problem with recursion, when we use @OneToMany @ManyToOne
+@JsonIdentityInfo(
+        generator = ObjectIdGenerators.PropertyGenerator.class,
+        property = "id")
 public class Timeslot {
 
-    @Transient
-    SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd.M.yyyy");
+    /*@Transient
+    SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd.M.yyyy");*/
 
     @Id
     @Column(name = "id")
@@ -34,20 +43,25 @@ public class Timeslot {
     @JoinColumn(name = "ticket_id")
     private Ticket ticket;
 
-
-
-    public Timeslot(){
+    public Timeslot() {
 
     }
 
+    public Timeslot(LocalTime startTime){
+        this.endTime = startTime;
+        endTime.plus(movie.getMovie_time().getHour(), ChronoUnit.HOURS);
+        endTime.plus(movie.getMovie_time().getMinute(), ChronoUnit.MINUTES);
+        endTime.plus(movie.getMovie_time().getSecond(), ChronoUnit.SECONDS);
+    }
 
-    public SimpleDateFormat getSimpleDateFormat() {
+
+    /*public SimpleDateFormat getSimpleDateFormat() {
         return simpleDateFormat;
     }
 
     public void setSimpleDateFormat(SimpleDateFormat simpleDateFormat) {
         this.simpleDateFormat = simpleDateFormat;
-    }
+    }*/
 
     public Long getId() {
         return id;
@@ -90,18 +104,18 @@ public class Timeslot {
         this.movie = movie;
     }
 
-    public Ticket getTicket() {
+    /*public Ticket getTicket() {
         return ticket;
     }
 
     public void setTicket(Ticket ticket) {
         this.ticket = ticket;
-    }
+    }*/
 
     @Override
     public String toString() {
         return "Timeslot{" +
-                "simpleDateFormat=" + simpleDateFormat +
+                /*"simpleDateFormat=" + simpleDateFormat +*/
                 ", id=" + id +
                 ", date=" + date +
                 ", startTime=" + startTime +

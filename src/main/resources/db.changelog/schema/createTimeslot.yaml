@@ -28,7 +28,6 @@ databaseChangeLog:
                   type: Time
                   constraints:
                     nullable: false
-
               - column:
                   name: movie_id
                   type: BIGINT

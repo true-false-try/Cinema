@@ -20,5 +20,8 @@ databaseChangeLog:
                     unique: true
                     nullable: false
               - column:
-                  name: movie_id
+                  name: timeslot_id
+                  type: BIGINT
+              - column:
+                  name: ticket_id
                   type: BIGINT

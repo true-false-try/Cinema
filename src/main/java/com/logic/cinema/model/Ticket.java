@@ -1,10 +1,17 @@
 package com.logic.cinema.model;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+
 import javax.persistence.*;
 import java.util.List;
 
 @Entity
 @Table(name = "tickets")
+// @JsonIdentityInfo - use for solve the problem with recursion, when we use @OneToMany @ManyToOne
+@JsonIdentityInfo(
+        generator = ObjectIdGenerators.PropertyGenerator.class,
+        property = "id")
 public class Ticket {
 
     @Id

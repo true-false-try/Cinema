@@ -11,3 +11,11 @@ databaseChangeLog:
           file: db.changelog/data/insertTimeslot.yaml
     - include:
         file: db.changelog/data/insertSeat.yaml
+    - include:
+        file: db.changelog/data/insertTimeslot.yaml
+    - include:
+          file: db.changelog/data/insertTariff.yaml
+    - include:
+          file: db.changelog/data/insertTicket.yaml
+    - include:
+          file: db.changelog/data/insertUser.yaml

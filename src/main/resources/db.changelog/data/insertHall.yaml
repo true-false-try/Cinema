@@ -11,7 +11,7 @@ databaseChangeLog:
                   name: name
                   value: "RED"
               - column:
-                  name: movie_id
+                  name: timeslot_id
                   value: 1
         - insert:
             tableName: halls
@@ -20,5 +20,5 @@ databaseChangeLog:
                   name: name
                   value: "BLACK"
               - column:
-                  name: movie_id
+                  name: timeslot_id
                   value: 2
