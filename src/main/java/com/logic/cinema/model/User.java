@@ -1,5 +1,7 @@
 package com.logic.cinema.model;
 
+
+
 import javax.persistence.*;
 import java.util.Set;
 

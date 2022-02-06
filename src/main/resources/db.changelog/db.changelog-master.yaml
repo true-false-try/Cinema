@@ -1,21 +1,8 @@
 databaseChangeLog:
-    # include create and insert manipulation with table halls
+    # include schema
     - includeAll:
         path: db.changelog/schema
 
-    - include:
-        file: db.changelog/data/insertHall.yaml
-    - include:
-          file: db.changelog/data/insertMovie.yaml
-    - include:
-          file: db.changelog/data/insertTimeslot.yaml
-    - include:
-        file: db.changelog/data/insertSeat.yaml
-    - include:
-        file: db.changelog/data/insertTimeslot.yaml
-    - include:
-          file: db.changelog/data/insertTariff.yaml
-    - include:
-          file: db.changelog/data/insertTicket.yaml
-    - include:
-          file: db.changelog/data/insertUser.yaml
+    # include date
+    - includeAll:
+        path: db.changelog/data

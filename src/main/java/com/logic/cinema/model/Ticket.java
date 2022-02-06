@@ -1,6 +1,7 @@
 package com.logic.cinema.model;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import javax.persistence.*;
@@ -25,6 +26,7 @@ public class Ticket {
 
     @ManyToOne
     @JoinColumn(name = "user_id")
+    @JsonIgnore
     private User user;
 
     @OneToMany(mappedBy = "ticket")
@@ -50,14 +52,6 @@ public class Ticket {
         this.tariff = tariff;
     }
 
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
-
     public List<Timeslot> getTimeSlot() {
         return timeSlot;
     }
@@ -71,7 +65,6 @@ public class Ticket {
         return "Ticket{" +
                 "id=" + id +
                 ", tariff=" + tariff +
-                ", user=" + user +
                 ", timeSlot=" + timeSlot +
                 '}';
     }

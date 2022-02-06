@@ -10,15 +10,9 @@ databaseChangeLog:
               - column:
                   name: name
                   value: "RED"
-              - column:
-                  name: timeslot_id
-                  value: 1
         - insert:
             tableName: halls
             columns:
               - column:
                   name: name
                   value: "BLACK"
-              - column:
-                  name: timeslot_id
-                  value: 2

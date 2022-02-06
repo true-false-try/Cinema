@@ -18,14 +18,6 @@ public class Tariff {
    @Column(name = "cost", length = 10, nullable = false)
    private Double cost;
 
-   @ManyToMany(fetch = FetchType.LAZY)
-   @JoinTable(name = "tickets",
-           joinColumns = {@JoinColumn(name = "tariff_id")},
-           inverseJoinColumns = {@JoinColumn(name = "timeslot_id")}
-   )
-   private List<Ticket> ticketList;
-
-
    public Tariff() {
 
    }
@@ -54,21 +46,12 @@ public class Tariff {
       this.cost = cost;
    }
 
-   public List<Ticket> getTicketList() {
-      return ticketList;
-   }
-
-   public void setTicketList(List<Ticket> ticketList) {
-      this.ticketList = ticketList;
-   }
-
    @Override
    public String toString() {
       return "Tariff{" +
               "id=" + id +
               ", name='" + name + '\'' +
               ", cost=" + cost +
-              ", ticketList=" + ticketList +
               '}';
    }
 }

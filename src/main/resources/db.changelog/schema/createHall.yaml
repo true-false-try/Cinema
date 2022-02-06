@@ -19,9 +19,3 @@ databaseChangeLog:
                   constraints:
                     unique: true
                     nullable: false
-              - column:
-                  name: timeslot_id
-                  type: BIGINT
-              - column:
-                  name: ticket_id
-                  type: BIGINT

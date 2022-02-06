@@ -32,5 +32,8 @@ databaseChangeLog:
                   name: movie_id
                   type: BIGINT
               - column:
+                  name: hall_id
+                  type: BIGINT
+              - column:
                   name: ticket_id
                   type: BIGINT

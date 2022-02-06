@@ -22,15 +22,8 @@ public class Hall {
     @Column(name = "name", length = 30, nullable = false)
     private HallsList name;
 
-    @OneToOne
-    @JoinColumn(name = "timeslot_id")
-    private Timeslot timeslot;
-
-
     @OneToMany(mappedBy = "hall",cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Set<Seat> seats;
-
-
 
     public Hall(){
 
@@ -52,14 +45,6 @@ public class Hall {
         this.name = name;
     }
 
-    public Timeslot getMovies() {
-        return timeslot;
-    }
-
-    public void setMovies(Timeslot timeslot) {
-        this.timeslot = timeslot;
-    }
-
     public Set<Seat> getSeats() {
         return seats;
     }
@@ -73,7 +58,6 @@ public class Hall {
         return "Hall{" +
                 "id=" + id +
                 ", name=" + name +
-                ", timeslot=" + timeslot +
                 ", seats=" + seats +
                 '}';
     }

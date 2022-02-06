@@ -39,6 +39,10 @@ public class Timeslot {
     @JoinColumn(name = "movie_id")
     private Movie movie;
 
+    @OneToOne
+    @JoinColumn(name = "hall_id")
+    private Hall hall;
+
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "ticket_id")
     private Ticket ticket;
@@ -112,6 +116,14 @@ public class Timeslot {
         this.ticket = ticket;
     }*/
 
+    public Hall getHall() {
+        return hall;
+    }
+
+    public void setHall(Hall hall) {
+        this.hall = hall;
+    }
+
     @Override
     public String toString() {
         return "Timeslot{" +
@@ -122,6 +134,7 @@ public class Timeslot {
                 ", endTime=" + endTime +
                 ", movie=" + movie +
                 ", ticket=" + ticket +
+                ", hall=" + hall +
                 '}';
     }
 }
