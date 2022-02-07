@@ -16,9 +16,18 @@ databaseChangeLog:
               - column:
                   name: timeslot_id
                   type: BIGINT
+                  constraints:
+                    foreignKey: true
+                    mullable: false
               - column:
                   name: tariff_id
                   type: BIGINT
+                  constraints:
+                    foreignKey: true
+                    mullable: false
               - column:
                   name: user_id
                   type: BIGINT
+                  constraints:
+                    foreignKey: true
+                    mullable: false

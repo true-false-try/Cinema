@@ -19,7 +19,7 @@ public class TicketController {
     }
 
     @GetMapping("/list")
-    public List<Ticket> allTicket(){
+    public List<Ticket> allTickets(){
         return ticketService.findAllTicket();
     }
 

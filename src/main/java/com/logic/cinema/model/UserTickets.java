@@ -16,7 +16,7 @@ public class UserTickets {
     private User user;
 
     @OneToOne
-    @JoinColumn(name = "tickets_id")
+    @JoinColumn(name = "ticket_id")
     private Ticket ticket;
 
     public UserTickets() {

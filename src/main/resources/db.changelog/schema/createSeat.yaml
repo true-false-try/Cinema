@@ -25,3 +25,7 @@ databaseChangeLog:
               - column:
                   name: hall_id
                   type: BIGINT
+                  constraints:
+                    foreignKeyName: hall_id
+                    references: halls(id)
+                    nullable: false

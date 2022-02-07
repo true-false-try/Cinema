@@ -52,6 +52,14 @@ public class Ticket {
         this.tariff = tariff;
     }
 
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
     public List<Timeslot> getTimeSlot() {
         return timeSlot;
     }
@@ -65,10 +73,14 @@ public class Ticket {
         return "Ticket{" +
                 "id=" + id +
                 ", tariff=" + tariff +
+                ", user=" + user +
                 ", timeSlot=" + timeSlot +
                 '}';
     }
 }
+
+
+
 
 
 

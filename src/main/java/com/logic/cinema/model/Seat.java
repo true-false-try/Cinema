@@ -27,7 +27,7 @@ public class Seat {
     @Column(name = "status", length = 2, nullable = false)
     private StatusSeatsList status;
 
-    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    @ManyToOne(optional = false, fetch = FetchType.EAGER)
     @JoinColumn(name = "hall_id")
     private Hall hall;
 

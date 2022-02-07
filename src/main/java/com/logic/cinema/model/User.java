@@ -29,7 +29,7 @@ public class User {
     @OneToMany
     @JoinTable(name = "user_tickets",
             joinColumns = {@JoinColumn(name = "user_id")},
-            inverseJoinColumns = {@JoinColumn(name = "tickets_id")}
+            inverseJoinColumns = {@JoinColumn(name = "ticket_id")}
     )
     private Set<Ticket> tickets;
 

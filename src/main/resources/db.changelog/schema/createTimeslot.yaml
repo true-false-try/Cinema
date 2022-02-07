@@ -31,9 +31,21 @@ databaseChangeLog:
               - column:
                   name: movie_id
                   type: BIGINT
+                  constraints:
+                    nullable: false
+                    foreignKeyName: movie_id
+                    references: movies(id)
               - column:
                   name: hall_id
                   type: BIGINT
+                  constraints:
+                    nullable: false
+                    foreignKeyName: hall_id
+                    references: halls(id)
               - column:
                   name: ticket_id
                   type: BIGINT
+                  constraints:
+                    nullable: false
+                    foreignKeyName: ticket_id
+                    references: tickets(id)

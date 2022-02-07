@@ -22,7 +22,7 @@ public class Hall {
     @Column(name = "name", length = 30, nullable = false)
     private HallsList name;
 
-    @OneToMany(mappedBy = "hall",cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "hall", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Set<Seat> seats;
 
     public Hall(){

@@ -18,9 +18,6 @@ import java.time.temporal.ChronoUnit;
         property = "id")
 public class Timeslot {
 
-    /*@Transient
-    SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd.M.yyyy");*/
-
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -58,15 +55,6 @@ public class Timeslot {
         endTime.plus(movie.getMovie_time().getSecond(), ChronoUnit.SECONDS);
     }
 
-
-    /*public SimpleDateFormat getSimpleDateFormat() {
-        return simpleDateFormat;
-    }
-
-    public void setSimpleDateFormat(SimpleDateFormat simpleDateFormat) {
-        this.simpleDateFormat = simpleDateFormat;
-    }*/
-
     public Long getId() {
         return id;
     }
@@ -99,7 +87,6 @@ public class Timeslot {
         this.endTime = endTime;
     }
 
-
     public Movie getMovie() {
         return movie;
     }
@@ -107,14 +94,6 @@ public class Timeslot {
     public void setMovie(Movie movie) {
         this.movie = movie;
     }
-
-    /*public Ticket getTicket() {
-        return ticket;
-    }
-
-    public void setTicket(Ticket ticket) {
-        this.ticket = ticket;
-    }*/
 
     public Hall getHall() {
         return hall;
@@ -124,17 +103,25 @@ public class Timeslot {
         this.hall = hall;
     }
 
+    public Ticket getTicket() {
+        return ticket;
+    }
+
+    public void setTicket(Ticket ticket) {
+        this.ticket = ticket;
+    }
+
     @Override
     public String toString() {
         return "Timeslot{" +
-                /*"simpleDateFormat=" + simpleDateFormat +*/
-                ", id=" + id +
+                "id=" + id +
                 ", date=" + date +
                 ", startTime=" + startTime +
                 ", endTime=" + endTime +
                 ", movie=" + movie +
-                ", ticket=" + ticket +
                 ", hall=" + hall +
+                ", ticket=" + ticket +
                 '}';
     }
+
 }
