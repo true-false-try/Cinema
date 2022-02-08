@@ -24,7 +24,7 @@ public class Ticket {
     @JoinColumn(name = "tariff_id")
     private Tariff tariff;
 
-    @ManyToOne
+    @ManyToOne(optional = false, fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id")
     @JsonIgnore
     private User user;

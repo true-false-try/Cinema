@@ -26,11 +26,7 @@ public class User {
     @Column(name = "age", length = 3)
     private Integer age;
 
-    @OneToMany
-    @JoinTable(name = "user_tickets",
-            joinColumns = {@JoinColumn(name = "user_id")},
-            inverseJoinColumns = {@JoinColumn(name = "ticket_id")}
-    )
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Set<Ticket> tickets;
 
     public User() {
