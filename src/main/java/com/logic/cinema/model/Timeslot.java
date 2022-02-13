@@ -2,10 +2,10 @@ package com.logic.cinema.model;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import org.springframework.beans.factory.annotation.Autowired;
 
 
 import javax.persistence.*;
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.temporal.ChronoUnit;
@@ -47,12 +47,12 @@ public class Timeslot {
     public Timeslot() {
 
     }
-
+    
     public Timeslot(LocalTime startTime){
-        this.endTime = startTime;
-        endTime.plus(movie.getMovie_time().getHour(), ChronoUnit.HOURS);
-        endTime.plus(movie.getMovie_time().getMinute(), ChronoUnit.MINUTES);
-        endTime.plus(movie.getMovie_time().getSecond(), ChronoUnit.SECONDS);
+        startTime.plus(movie.getMovie_time().getHour(), ChronoUnit.HOURS);
+        startTime.plus(movie.getMovie_time().getMinute(), ChronoUnit.MINUTES);
+        startTime.plus(movie.getMovie_time().getSecond(), ChronoUnit.SECONDS);
+        setEndTime(startTime);
     }
 
     public Long getId() {

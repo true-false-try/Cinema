@@ -1,6 +1,6 @@
 databaseChangeLog:
   - changeSet:
-      id: 1
+      id: crt_seats
       author: Chekhovskyi
       changes:
         - createTable:

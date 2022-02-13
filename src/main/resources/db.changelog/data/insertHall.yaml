@@ -1,6 +1,6 @@
 databaseChangeLog:
   - changeSet:
-      id: 2
+      id: ins_halls
       author: Chekhovskyi
       comment: "Create Test Hall"
       changes:

@@ -1,6 +1,6 @@
 databaseChangeLog:
   - changeSet:
-      id: 1
+      id: crt_timeslots
       author: Chekhovskyi
       changes:
         - createTable:
@@ -18,16 +18,16 @@ databaseChangeLog:
                   type: BIGINT
                   constraints:
                     foreignKey: true
-                    mullable: false
+                    nullable: false
               - column:
                   name: tariff_id
                   type: BIGINT
                   constraints:
                     foreignKey: true
-                    mullable: false
+                    nullable: false
               - column:
                   name: user_id
                   type: BIGINT
                   constraints:
                     foreignKey: true
-                    mullable: false
+                    nullable: false
