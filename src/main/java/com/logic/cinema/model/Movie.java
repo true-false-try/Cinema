@@ -1,8 +1,12 @@
 package com.logic.cinema.model;
 
 import javax.persistence.*;
+<<<<<<< HEAD
 import java.sql.Date;
 import java.util.Set;
+=======
+import java.time.LocalTime;
+>>>>>>> origin/testWeb
 
 @Entity
 @Table(name = "movies")
@@ -11,7 +15,11 @@ public class Movie {
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+<<<<<<< HEAD
     private Integer id;
+=======
+    private Long id;
+>>>>>>> origin/testWeb
 
     @Column(name = "name", length = 128, nullable = false)
     private String name;
@@ -31,6 +39,7 @@ public class Movie {
     @Column(name = "genres", length = 50, nullable = false)
     private String genres;
 
+<<<<<<< HEAD
     @Column(name = "date_of_start_showing")
     private Date dateOfStartShowing;
 
@@ -43,16 +52,28 @@ public class Movie {
             inverseJoinColumns = {@JoinColumn(name = "timeSlot_id")}
     )
     private Set<TimeSlot> timeSlot;
+=======
+    @Column(name = "movie_time")
+    private LocalTime movie_time;
+>>>>>>> origin/testWeb
 
     public Movie() {
 
     }
 
+<<<<<<< HEAD
     public Integer getId() {
         return id;
     }
 
     public void setId(Integer id) {
+=======
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+>>>>>>> origin/testWeb
         this.id = id;
     }
 
@@ -104,6 +125,7 @@ public class Movie {
         this.genres = genres;
     }
 
+<<<<<<< HEAD
     public Date getDateOfStartShowing() {
         return dateOfStartShowing;
     }
@@ -127,6 +149,16 @@ public class Movie {
     public void setTimeSlot(Set<TimeSlot> timeSlot) {
         this.timeSlot = timeSlot;
     }
+=======
+    public LocalTime getMovie_time() {
+        return movie_time;
+    }
+
+    public void setMovie_time(LocalTime movie_time) {
+        this.movie_time = movie_time;
+    }
+
+>>>>>>> origin/testWeb
 
     @Override
     public String toString() {
@@ -138,9 +170,13 @@ public class Movie {
                 ", rating=" + rating +
                 ", type='" + type + '\'' +
                 ", genres='" + genres + '\'' +
+<<<<<<< HEAD
                 ", dateOfStartShowing=" + dateOfStartShowing +
                 ", dateOfEndShowing=" + dateOfEndShowing +
                 ", timeSlot=" + timeSlot +
+=======
+                ", movie_time=" + movie_time +
+>>>>>>> origin/testWeb
                 '}';
     }
 }

@@ -1,0 +1,31 @@
+databaseChangeLog:
+  - changeSet:
+      id: crt_seats
+      author: Chekhovskyi
+      changes:
+        - createTable:
+            tableName: seats
+            columns:
+              - column:
+                  name: id
+                  type: BIGINT
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: row
+                  type: INT
+              - column:
+                  name: seat
+                  type: INT
+              - column:
+                  name: status
+                  type: varchar(30)
+              - column:
+                  name: hall_id
+                  type: BIGINT
+                  constraints:
+                    foreignKeyName: hall_id
+                    references: halls(id)
+                    nullable: false

@@ -1,7 +1,14 @@
 package com.logic.cinema.model;
 
+<<<<<<< HEAD
 import javax.persistence.*;
 import java.util.List;
+=======
+
+
+import javax.persistence.*;
+import java.util.Set;
+>>>>>>> origin/testWeb
 
 @Entity
 @Table(name="users")
@@ -10,7 +17,11 @@ public class User {
     @Id
     @Column(name="id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+<<<<<<< HEAD
     private Integer id;
+=======
+    private Long id;
+>>>>>>> origin/testWeb
 
     @Column(name = "name", length = 128, nullable = false)
     private String name;
@@ -24,18 +35,31 @@ public class User {
     @Column(name = "age", length = 3)
     private Integer age;
 
+<<<<<<< HEAD
     @OneToMany
     private List<Ticket> tickets;
+=======
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private Set<Ticket> tickets;
+>>>>>>> origin/testWeb
 
     public User() {
 
     }
 
+<<<<<<< HEAD
     public Integer getId() {
         return id;
     }
 
     public void setId(Integer id) {
+=======
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+>>>>>>> origin/testWeb
         this.id = id;
     }
 
@@ -71,11 +95,19 @@ public class User {
         this.age = age;
     }
 
+<<<<<<< HEAD
     public List<Ticket> getTicket() {
         return tickets;
     }
 
     public void setTicket(List<Ticket> tickets) {
+=======
+    public Set<Ticket> getTicket() {
+        return tickets;
+    }
+
+    public void setTicket(Set<Ticket> tickets) {
+>>>>>>> origin/testWeb
         this.tickets = tickets;
     }
 

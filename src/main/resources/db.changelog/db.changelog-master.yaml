@@ -1,0 +1,8 @@
+databaseChangeLog:
+    # include schema
+    - includeAll:
+        path: db.changelog/schema
+
+    # include date
+    - includeAll:
+        path: db.changelog/data

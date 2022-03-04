@@ -1,0 +1,25 @@
+databaseChangeLog:
+  - changeSet:
+      id: crt_tariffs
+      author: Chekhovskyi
+      changes:
+        - createTable:
+            tableName: tariffs
+            columns:
+              - column:
+                  name: id
+                  type: BIGINT
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: name
+                  type: varchar(128)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: cost
+                  type: DOUBLE
+                  constraints:
+                    nullable: false

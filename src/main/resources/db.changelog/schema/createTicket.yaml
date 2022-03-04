@@ -1,0 +1,33 @@
+databaseChangeLog:
+  - changeSet:
+      id: crt_timeslots
+      author: Chekhovskyi
+      changes:
+        - createTable:
+            tableName: tickets
+            columns:
+              - column:
+                  name: id
+                  type: BIGINT
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: timeslot_id
+                  type: BIGINT
+                  constraints:
+                    foreignKey: true
+                    nullable: false
+              - column:
+                  name: tariff_id
+                  type: BIGINT
+                  constraints:
+                    foreignKey: true
+                    nullable: false
+              - column:
+                  name: user_id
+                  type: BIGINT
+                  constraints:
+                    foreignKey: true
+                    nullable: false
