@@ -1,0 +1,36 @@
+databaseChangeLog:
+  - changeSet:
+      id: ins_halls
+      author: Chekhovskyi
+      comment: "Create Test Seat"
+      changes:
+        - insert:
+            tableName: seats
+            columns:
+              - column:
+                  name: row
+                  value: 1
+              - column:
+                  name: seat
+                  value: 2
+              - column:
+                  name: status
+                  value: "AVAILABLE"
+              - column:
+                  name: hall_id
+                  value: 1
+        - insert:
+            tableName: seats
+            columns:
+              - column:
+                  name: row
+                  value: 1
+              - column:
+                  name: seat
+                  value: 2
+              - column:
+                  name: status
+                  value: "NOT_AVAILABLE"
+              - column:
+                  name: hall_id
+                  value: 1
