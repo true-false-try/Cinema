@@ -19,28 +19,35 @@ public class HallServiceImpl implements HallService{
 
     private final HallDAO hallDAO;
 
-    public HallServiceImpl(HallDAO hallDAO) {
+    private final SeatService seatService;
+
+    public HallServiceImpl(HallDAO hallDAO, SeatService seatService) {
         this.hallDAO = hallDAO;
+        this.seatService = seatService;
     }
 
     @Override
     public Hall save(Hall hall) {
+        try {
+            Set<Long> seatsId  = hall.getSeats()
+                    .stream()
+                    .map(Seat::getId)
+                    .collect(Collectors.toSet());
+
+            seatsId.forEach(value -> seatService.findByHallId(hall.getId(),value));
+
+        } catch (RuntimeException exception) {
+            // Kostil'
+            return null;
+        }
         return hallDAO.save(hall);
     }
 
     @Override
     @Transactional
-    public void update(Long id, HallsList name, Set<Seat> seats) {
-        if (hallDAO.findById(id).isPresent()){
-            hallDAO.update(
-                    id,
-                    name,
-                    seats
-            );
-        } else {
-            Exception exception = new NullPointerException();
-            System.out.println(exception.getMessage());
-        }
+    public void update(Long id, HallsList name) {
+        Hall hall = findById(id);
+        hallDAO.update(hall.getId(),name);
     }
 
     @Override

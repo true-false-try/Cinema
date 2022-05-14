@@ -12,7 +12,7 @@ import java.util.Set;
 
 public interface HallService {
     Hall save(Hall hall);
-    void update(Long id, HallsList name, Set<Seat> seats);
+    void update(Long id, HallsList name);
     List<Hall> findAllHalls();
     Hall findById(Long id);
     void delete(Long id);

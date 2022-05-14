@@ -29,14 +29,26 @@ public class HallController {
     public Hall addHall(@RequestBody Hall hall) { return hallService.save(hall); }
 
     @PutMapping("/update/{id}")
-    public void updateHall(@PathVariable(value = "id") Long id) {
-        Hall hall = hallService.findById(id);
-        hallService.update(hall.getId(), hall.getName(), hall.getSeats());
+    public String updateHall(@PathVariable(value = "id") Long id, @RequestParam HallsList name) {
+        try {
+            Hall hall = hallService.findById(id);
+            hallService.update(hall.getId(), name);
+        }
+        catch (RuntimeException exception) {
+            return "Hall not found for id :" + id;
+        }
+        return String.format("Hall id: %d have been updating",id);
     }
 
     @DeleteMapping("/delete/{id}")
-    public void deleteHall(@PathVariable(value = "id") Long id) {
-        hallService.delete(id);
+    public String deleteHall(@PathVariable(value = "id") Long id) {
+        try {
+            hallService.delete(id);
+        }
+        catch (RuntimeException exception) {
+            return "Hall not found for id :  " + id;
+        }
+        return String.format("Hall %s have been deleted",id);
     }
 
 }
