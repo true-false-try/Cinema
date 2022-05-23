@@ -19,35 +19,31 @@ public class HallServiceImpl implements HallService{
 
     private final HallDAO hallDAO;
 
-    private final SeatService seatService;
-
-    public HallServiceImpl(HallDAO hallDAO, SeatService seatService) {
+    public HallServiceImpl(HallDAO hallDAO) {
         this.hallDAO = hallDAO;
-        this.seatService = seatService;
     }
 
     @Override
-    public Hall save(Hall hall) {
-        try {
-            Set<Long> seatsId  = hall.getSeats()
-                    .stream()
-                    .map(Seat::getId)
-                    .collect(Collectors.toSet());
+    public String save(Hall hall) {
+        if (findById(hall.getId()).isEmpty()) {
+            hallDAO.save(hall);
+        } else
+            return "Hall wasn't saved because this Hall already exists";
 
-            seatsId.forEach(value -> seatService.findByHallId(hall.getId(),value));
-
-        } catch (RuntimeException exception) {
-            // Kostil'
-            return null;
-        }
-        return hallDAO.save(hall);
+        return String.format("Hall {id: %d, name: %s} was add",hall.getId(),hall.getName());
     }
 
     @Override
     @Transactional
-    public void update(Long id, HallsList name) {
-        Hall hall = findById(id);
-        hallDAO.update(hall.getId(),name);
+    public String update(Hall hall){
+        if (findById(hall.getId()).isPresent())
+            hallDAO.update(
+                    findById(hall.getId()).get().getId(),
+                    hall.getName());
+
+        else
+            return "Hall not found, please try again";
+        return "Hall was update";
     }
 
     @Override
@@ -56,25 +52,19 @@ public class HallServiceImpl implements HallService{
     }
 
     @Override
-    public Hall findById(Long id) {
-        Optional<Hall> optionalHall = hallDAO.findById(id);
-        Hall hall;
-        if (optionalHall.isPresent()) {
-            hall = optionalHall.get();
-        } else {
-            throw new RuntimeException("Hall not found for id :  " + id);
-        }
-        return hall;
+    public Optional<Hall> findById(Long id) {
+
+        return hallDAO.findById(id);
     }
 
     @Override
-    public void delete(Long id) {
-        if (hallDAO.findById(id).isPresent()){
+    public String delete(Long id) {
+        if (hallDAO.findById(id).isPresent())
             hallDAO.deleteById(id);
-        }
-        else {
-            throw new RuntimeException("Hall not found for id, please enter valid id");
-        }
+        else
+            return String.format("Hall not found for id: %s, please enter valid id",id);
+
+        return String.format("Hall %s have been deleted",id);
     }
 
 }

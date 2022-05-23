@@ -11,9 +11,9 @@ import java.util.Optional;
 import java.util.Set;
 
 public interface HallService {
-    Hall save(Hall hall);
-    void update(Long id, HallsList name);
+    String save(Hall hall);
+    String update(Hall hall);
     List<Hall> findAllHalls();
-    Hall findById(Long id);
-    void delete(Long id);
+    Optional<Hall> findById(Long id);
+    String delete(Long id);
 }
