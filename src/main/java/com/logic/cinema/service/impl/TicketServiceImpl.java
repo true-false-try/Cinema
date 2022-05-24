@@ -1,7 +1,8 @@
-package com.logic.cinema.service;
+package com.logic.cinema.service.impl;
 
-import com.logic.cinema.dao.TicketDAO;
+import com.logic.cinema.repository.TicketDAO;
 import com.logic.cinema.model.Ticket;
+import com.logic.cinema.service.TicketService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

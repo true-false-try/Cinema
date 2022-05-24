@@ -1,14 +1,14 @@
 package com.logic.cinema.controller;
 
 
+import com.logic.cinema.exeptions.DeleteException;
+import com.logic.cinema.exeptions.UpdateException;
 import com.logic.cinema.model.Hall;
-import com.logic.cinema.model.HallsList;
-import com.logic.cinema.model.Seat;
 import com.logic.cinema.service.HallService;
+import org.postgresql.util.PSQLException;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Set;
 
 @RestController
 @RequestMapping("/api/halls")
@@ -25,17 +25,16 @@ public class HallController {
         return hallService.findAllHalls();
     }
 
-    @PostMapping("/add")
-    public String addHall(@RequestBody Hall hall) { return hallService.save(hall); }
+    @PostMapping
+    public Hall addHall(@RequestBody Hall hall) { return hallService.save(hall); }
 
-    @PutMapping("/update")
-    public String updateHall(@RequestBody Hall hall) {
-        hallService.update(hall);
-        return String.format("Hall %s was updated", hall.getId());
+    @PutMapping
+    public Hall updateHall(@RequestBody Hall hall) throws UpdateException, PSQLException {
+        return hallService.update(hall);
     }
 
-    @DeleteMapping("/delete/{id}")
-    public String deleteHall(@PathVariable(value = "id") Long id) throws RuntimeException {
+    @DeleteMapping("{id}")
+    public String deleteHall(@PathVariable(value = "id") Long id) throws DeleteException {
         return hallService.delete(id);
     }
 

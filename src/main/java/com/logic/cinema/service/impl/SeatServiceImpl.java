@@ -1,7 +1,8 @@
-package com.logic.cinema.service;
+package com.logic.cinema.service.impl;
 
-import com.logic.cinema.dao.SeatDAO;
+import com.logic.cinema.repository.SeatDAO;
 import com.logic.cinema.model.Seat;
+import com.logic.cinema.service.SeatService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

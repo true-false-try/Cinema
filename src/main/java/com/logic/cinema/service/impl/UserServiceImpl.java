@@ -1,7 +1,8 @@
-package com.logic.cinema.service;
+package com.logic.cinema.service.impl;
 
-import com.logic.cinema.dao.UserDAO;
+import com.logic.cinema.repository.UserDAO;
 import com.logic.cinema.model.User;
+import com.logic.cinema.service.UserService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

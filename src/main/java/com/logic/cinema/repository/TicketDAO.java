@@ -1,4 +1,4 @@
-package com.logic.cinema.dao;
+package com.logic.cinema.repository;
 
 import com.logic.cinema.model.Ticket;
 import org.springframework.data.jpa.repository.JpaRepository;
