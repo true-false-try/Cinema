@@ -1,0 +1,8 @@
+package com.logic.cinema.exeptions;
+
+public class AddException extends CrudException{
+
+    public AddException(String message, Long id) {
+        super(String.format(message, id));
+    }
+}

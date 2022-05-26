@@ -1,5 +1,6 @@
 package com.logic.cinema.service.impl;
 
+import com.logic.cinema.exeptions.AddException;
 import com.logic.cinema.exeptions.DeleteException;
 import com.logic.cinema.exeptions.UpdateException;
 import com.logic.cinema.repository.HallDAO;
@@ -24,8 +25,11 @@ public class HallServiceImpl implements HallService {
     }
 
     @Override
-    public Hall save(Hall hall) {
-        return hallDAO.save(hall);
+    public Hall save(Hall hall) throws AddException {
+        if (hallDAO.findById(hall.getId()).isEmpty()){
+            return hallDAO.save(hall);
+        }
+        else throw new AddException("Hall with this id: %s is already in use", hall.getId());
     }
 
     @Override
