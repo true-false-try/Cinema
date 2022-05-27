@@ -32,6 +32,10 @@ public class Hall {
         this.name = name;
     }
 
+    public String toName() {
+        return name.name();
+    }
+
     public Long getId() {
         return id;
     }
@@ -64,4 +68,5 @@ public class Hall {
                 ", seats=" + seats +
                 '}';
     }
+
 }

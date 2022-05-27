@@ -39,9 +39,10 @@ public class HallServiceImpl implements HallService {
 
     @Override
     public JSONObject save(Hall hall) throws AddException {
+        Hall saveHall = new Hall(hall.getName());
+        Set<Seat> seatsList = new HashSet<>(hall.getSeats());
+
         if (findByName(hall.getName()).isEmpty()) {
-            Hall saveHall = new Hall(hall.getName());
-            Set<Seat> seatsList = new HashSet<>(hall.getSeats());
 
             hallDAO.save(saveHall);
 
@@ -51,7 +52,7 @@ public class HallServiceImpl implements HallService {
             return JsonResponse.responseMessage("Hall was added");
 
         }
-        else throw new AddException("Hall with this id: %s is already in use", hall.getId());
+        else throw new AddException("Hall with this name: %s is already in use", hall.toName());
     }
 
     @Override
