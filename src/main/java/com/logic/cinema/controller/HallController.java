@@ -30,7 +30,9 @@ public class HallController {
     }
 
     @PostMapping
-    public Hall addHall(@RequestBody Hall hall) throws AddException { return hallService.save(hall); }
+    public ResponseEntity<String> addHall(@RequestBody Hall hall) throws AddException {
+        return ResponseEntity.ok().body(hallService.save(hall).toString());
+    }
 
     @PutMapping
     public Hall updateHall(@RequestBody Hall hall) throws UpdateException, PSQLException {
@@ -38,8 +40,8 @@ public class HallController {
     }
 
     @DeleteMapping("{id}")
-    public String deleteHall(@PathVariable(value = "id") Long id) throws DeleteException {
-        return hallService.delete(id);
+    public ResponseEntity<String> deleteHall(@PathVariable(value = "id") Long id) throws DeleteException {
+        return ResponseEntity.ok().body(hallService.delete(id).toString());
     }
 
     @ExceptionHandler({AddException.class})

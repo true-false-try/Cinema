@@ -22,11 +22,14 @@ public class Hall {
     @Column(name = "name", length = 30, nullable = false)
     private HallsList name;
 
-    @OneToMany(mappedBy = "hall", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "hall", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Set<Seat> seats;
 
-    public Hall(){
+    public Hall() {
 
+    }
+    public Hall( HallsList name){
+        this.name = name;
     }
 
     public Long getId() {

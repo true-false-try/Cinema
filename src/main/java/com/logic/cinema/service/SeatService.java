@@ -7,5 +7,6 @@ import java.util.Set;
 
 public interface SeatService {
     List<Seat> findAllSeats();
-    Set<Seat> findByHallId(Long hallId, Long seatId);
+    Seat save(Seat hall);
+    Set<Seat> findByHall(Long id);
 }

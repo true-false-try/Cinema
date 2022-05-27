@@ -9,11 +9,9 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import java.util.Optional;
+
 @Repository
 public interface HallDAO extends JpaRepository<Hall,Long>, CrudRepository<Hall,Long>{
-    @Modifying
-    @Query("UPDATE Hall h SET h.name = :name WHERE h.id = :id")
-    void update(@Param("id") Long id,
-                @Param("name") HallsList name);
-
+    Optional<Hall> getHallByName(HallsList name);
 }

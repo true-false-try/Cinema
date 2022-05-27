@@ -27,10 +27,10 @@ public class Seat {
     @Column(name = "status", length = 2, nullable = false)
     private StatusSeatsList status;
 
-    @ManyToOne(optional = false, fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.DETACH)
     @JoinColumn(name = "hall_id")
+    @JsonIgnore
     private Hall hall;
-
 
     public Seat() {
 
