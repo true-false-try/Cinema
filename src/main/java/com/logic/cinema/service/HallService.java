@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.Optional;
 
 public interface HallService {
-    JSONObject save(Hall hall) throws AddException;
+    Hall save(Hall hall) throws AddException;
     Hall update(Hall hall) throws UpdateException, PSQLException;
     List<Hall> findAllHalls();
     Optional<Hall> findById(Long id);
