@@ -72,8 +72,8 @@ public class Seat {
         return hall;
     }
 
-    public void setHalls(Hall halls) {
-        this.hall = halls;
+    public void setHalls(Hall hall) {
+        this.hall = hall;
     }
 
     @Override

@@ -30,8 +30,8 @@ public class HallController {
     }
 
     @PostMapping
-    public ResponseEntity<String> addHall(@RequestBody Hall hall) throws AddException {
-        return ResponseEntity.ok().body(hallService.save(hall).toString());
+    public ResponseEntity<Hall> addHall(@RequestBody Hall hall) throws AddException {
+        return ResponseEntity.ok().body(hallService.save(hall));
     }
 
     @PutMapping

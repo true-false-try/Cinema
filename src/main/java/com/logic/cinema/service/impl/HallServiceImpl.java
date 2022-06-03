@@ -1,27 +1,18 @@
 package com.logic.cinema.service.impl;
 
-import com.logic.cinema.exeptions.AddException;
 import com.logic.cinema.exeptions.DeleteException;
 import com.logic.cinema.exeptions.UpdateException;
-import com.logic.cinema.model.HallsList;
-import com.logic.cinema.model.Seat;
-import com.logic.cinema.repository.HallDAO;
 import com.logic.cinema.model.Hall;
-
-import com.logic.cinema.repository.SeatDAO;
+import com.logic.cinema.model.HallsList;
+import com.logic.cinema.repository.HallDAO;
 import com.logic.cinema.service.HallService;
-import com.logic.cinema.service.SeatService;
 import com.logic.cinema.util.JsonResponse;
 import org.json.JSONObject;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
-import java.util.Set;
-import java.util.stream.Collectors;
 
 
 @Service
@@ -38,21 +29,12 @@ public class HallServiceImpl implements HallService {
     }
 
     @Override
-    public JSONObject save(Hall hall) throws AddException {
-        Hall saveHall = new Hall(hall.getName());
-        Set<Seat> seatsList = new HashSet<>(hall.getSeats());
-
-        if (findByName(hall.getName()).isEmpty()) {
-
-            hallDAO.save(saveHall);
-
-            seatsList.forEach(seat -> seat.setHalls(saveHall));
-            seatsList.forEach(seatService::save);
-
-            return JsonResponse.responseMessage("Hall was added");
-
-        }
-        else throw new AddException("Hall with this name: %s is already in use", hall.toName());
+    public Hall save(Hall hall) {
+        // это делать не обязательно. это защита от дурака
+        hall.setId(null);
+        // в этом случае будут создаватся каждый раз новые места
+        hall.getSeats().forEach(entry -> entry.setHalls(hall));
+        return hallDAO.save(hall);
     }
 
     @Override
