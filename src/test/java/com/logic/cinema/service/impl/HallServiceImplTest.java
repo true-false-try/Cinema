@@ -9,7 +9,6 @@ import com.logic.cinema.model.Seat;
 import com.logic.cinema.model.StatusSeatsList;
 import com.logic.cinema.repository.HallDAO;
 import com.logic.cinema.util.JsonResponse;
-import org.json.JSONObject;
 import org.junit.Ignore;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -24,10 +23,9 @@ import java.util.Optional;
 import java.util.Set;
 
 import static org.assertj.core.api.Assertions.assertThat;;
-import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @ExtendWith(MockitoExtension.class)
 class HallServiceImplTest {
@@ -49,20 +47,16 @@ class HallServiceImplTest {
     @Ignore
     @Test
     void shouldGetPositiveScenarioWhenAllOkForMethodSave() throws AddException {
-        Optional<Hall> optionalHall = Optional.of(BuilderHall.forSave());
-
-        when(hallDAO.getHallByName(HallsList.WHITE)).thenReturn(Optional.empty());
-
-
-        JSONObject returnService = serviceHall.save(BuilderHall.forSave());
+        Hall hall = BuilderHall.forSave();
+        when(hallDAO.save(hall)).thenReturn(hall);
+        Hall returnService = serviceHall.save(hall);
 
         verify(hallDAO).save(captorHall.capture());
         Hall value = captorHall.getValue();
-        
-        assertNull(returnService);
-        /*assertEquals(value.getName(), HallsList.RED);
-        value.getSeats()
-                .forEach(row -> assertEquals(row.getRow(),3));*/
+
+        assertThat(returnService).isNotNull();
+
+        assertNotNull(value.getName());
 
     }
 
@@ -184,8 +178,7 @@ class HallServiceImplTest {
             seat.setSeat(1);
             seat.setStatus(StatusSeatsList.AVAILABLE);
             seats.add(seat);
-            hall.setName(null);
-            hall.setId(1L);
+            hall.setName(HallsList.ORANGE);
             hall.setSeats(seats);
 
 
