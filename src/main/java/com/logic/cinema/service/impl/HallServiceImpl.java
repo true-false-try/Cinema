@@ -21,8 +21,6 @@ public class HallServiceImpl implements HallService {
     private final HallDAO hallDAO;
     private final SeatServiceImpl seatService;
 
-
-
     public HallServiceImpl(HallDAO hallDAO, SeatServiceImpl seatService) {
         this.hallDAO = hallDAO;
         this.seatService = seatService;
@@ -30,9 +28,8 @@ public class HallServiceImpl implements HallService {
 
     @Override
     public Hall save(Hall hall) {
-        // это делать не обязательно. это защита от дурака
         hall.setId(null);
-        // в этом случае будут создаватся каждый раз новые места
+
         hall.getSeats().forEach(entry -> entry.setHalls(hall));
         return hallDAO.save(hall);
     }
@@ -52,6 +49,7 @@ public class HallServiceImpl implements HallService {
     }
 
     @Override
+    //Read only
     public Optional<Hall> findById(Long id) {
         return hallDAO.findById(id);
     }
