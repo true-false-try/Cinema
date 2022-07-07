@@ -35,8 +35,8 @@ public class HallController {
     }
 
     @PutMapping
-    public Hall updateHall(@RequestBody Hall hall) throws UpdateException, PSQLException {
-        return hallService.update(hall);
+    public ResponseEntity<Hall> updateHall(@RequestBody Hall hall) throws UpdateException, PSQLException {
+        return ResponseEntity.ok().body(hallService.update(hall));
     }
 
     @DeleteMapping("{id}")

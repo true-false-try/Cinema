@@ -3,6 +3,7 @@ package com.logic.cinema.model;
 import com.fasterxml.jackson.annotation.*;
 
 import javax.persistence.*;
+import java.util.Objects;
 
 @Entity
 @Table(name = "seats")
@@ -85,5 +86,18 @@ public class Seat {
                 ", status=" + status +
                 ", halls=" + hall +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Seat seat1 = (Seat) o;
+        return row == seat1.row && seat == seat1.seat && Objects.equals(id, seat1.id) && status == seat1.status && Objects.equals(hall, seat1.hall);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, row, seat, status, hall);
     }
 }
