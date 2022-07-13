@@ -1,17 +1,34 @@
 package com.logic.cinema.model;
 
-import com.fasterxml.jackson.annotation.*;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
 
-import javax.persistence.*;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
 @Entity
 @Table(name = "seats")
-// @JsonIdentityInfo - use for solve the problem with recursion, when we use @OneToMany @ManyToOne
 @JsonIdentityInfo(
         generator = ObjectIdGenerators.PropertyGenerator.class,
-        property = "id")
+        property = "id")    // @JsonIdentityInfo - use for solve the problem with recursion, when we use @OneToMany @ManyToOne
+@Data
+@Builder
+@AllArgsConstructor
 public class Seat {
-
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -32,58 +49,5 @@ public class Seat {
     @JsonIgnore
     private Hall hall;
 
-    public Seat() {
-
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public int getRow() {
-        return row;
-    }
-
-    public void setRow(int row) {
-        this.row = row;
-    }
-
-    public int getSeat() {
-        return seat;
-    }
-
-    public void setSeat(int seat) {
-        this.seat = seat;
-    }
-
-    public StatusSeatsList getStatus() {
-        return status;
-    }
-
-    public void setStatus(StatusSeatsList status) {
-        this.status = status;
-    }
-
-    public Hall getHalls() {
-        return hall;
-    }
-
-    public void setHalls(Hall hall) {
-        this.hall = hall;
-    }
-
-    @Override
-    public String toString() {
-        return "Seat{" +
-                "id=" + id +
-                ", row=" + row +
-                ", seat=" + seat +
-                ", status=" + status +
-                ", halls=" + hall +
-                '}';
-    }
+    public Seat() { }
 }
