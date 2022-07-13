@@ -1,6 +1,5 @@
 package com.logic.cinema.service.impl;
 
-import com.logic.cinema.exeptions.AddException;
 import com.logic.cinema.exeptions.DeleteException;
 import com.logic.cinema.exeptions.UpdateException;
 import com.logic.cinema.model.Hall;
@@ -9,7 +8,7 @@ import com.logic.cinema.model.Seat;
 import com.logic.cinema.model.StatusSeatsList;
 import com.logic.cinema.repository.HallDAO;
 import com.logic.cinema.util.JsonResponse;
-import org.junit.Before;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -29,132 +28,106 @@ import static org.mockito.Mockito.when;
 @ExtendWith(MockitoExtension.class)
 class HallServiceImplTest {
     @Mock
-    private static HallDAO hallDAO;
-
+    private HallDAO hallDAO;
     @InjectMocks
     private HallServiceImpl testedEntry;
 
-    private static final Long id = 1L;
-    private static final HallsList NAME = HallsList.ORANGE;
+    private static final Long ID = null;
+    private static final HallsList NAME_FOR_HALL = HallsList.WHITE;
+    private static final HallsList NAME_FOR_UPDATE_HALL = HallsList.ORANGE;
+    private static Hall hall;
+    private static Hall hallForUpdate;
 
+    @BeforeEach
+    void initHall() throws CloneNotSupportedException {
+        Set<Seat> seatsList = new HashSet<>(Set.of(
+                Seat.builder()
+                        .id(1L)
+                        .row(1)
+                        .seat(1)
+                        .status(StatusSeatsList.AVAILABLE)
+                        .build()));
 
-    @Before
-    Hall setHall() {
-        Set<Seat> seats = new HashSet<>();
-        Seat seat = new Seat();
-        Hall hall = new Hall();
+        hall = Hall.builder()
+                .name(NAME_FOR_HALL)
+                .seats(seatsList)
+                .build();
 
-        seat.setId(1L);
-        seat.setRow(1);
-        seat.setSeat(1);
-
-        seat.setStatus(StatusSeatsList.AVAILABLE);
-        seats.add(seat);
-        hall.setId(1L);
-        hall.setName(HallsList.ORANGE);
-        hall.setSeats(seats);
-
-        return hall;
-    }
-
-    @Before
-    Hall updateHall() {
-        Set<Seat> seats = new HashSet<>();
-        Seat seat = new Seat();
-        Hall hall = new Hall();
-
-        seat.setId(1L);
-        seat.setRow(2);
-        seat.setSeat(3);
-
-        seat.setStatus(StatusSeatsList.NOT_AVAILABLE);
-        seats.add(seat);
-        hall.setId(1L);
-        hall.setName(HallsList.WHITE);
-        hall.setSeats(seats);
-
-        return hall;
+        hallForUpdate = hall.clone();
+        hallForUpdate.setName(NAME_FOR_UPDATE_HALL);
     }
 
     @Test
-    void shouldGetOkWhenSaveHall() throws AddException {
+    void shouldGetOkWhenSaveHall() {
+        when(hallDAO.save(any(Hall.class))).thenReturn(hall);
 
-        when(hallDAO.save(any(Hall.class))).thenReturn(setHall());
-        Hall resultService = testedEntry.save(setHall());
+        Hall result = testedEntry.save(hall);
 
-        assertThat(resultService).isNotNull();
-
-        assertNotNull(resultService.getName());
-
+        assertThat(result).isNotNull();
+        assertNotNull(result.getName());
     }
 
     @Test
     void shouldGetOkWhenUpdateHall() throws UpdateException {
+        Optional<Hall> optionalHall = Optional.of(hall);
 
-        Optional<Hall> optionalHall = Optional.of(setHall());
+        when(hallDAO.save(any(Hall.class))).thenReturn(hall);
+        when(hallDAO.findById(hall.getId())).thenReturn(optionalHall);
+        when(hallDAO.save(hallForUpdate)).thenReturn(hallForUpdate);
 
-        when(hallDAO.save(any(Hall.class))).thenReturn(setHall());
-        when(hallDAO.findById(setHall().getId())).thenReturn(optionalHall);
+        Hall result = testedEntry.update(hallForUpdate);
 
-        Hall resultService = testedEntry.update(updateHall());
-
-        assertThat(resultService).isNotNull();
-        assertEquals(resultService.getName(), NAME);
-        resultService.getSeats()
+        assertThat(result).isNotNull();
+        assertEquals(result.getName(), NAME_FOR_UPDATE_HALL);
+        result.getSeats()
                 .forEach(row -> assertEquals(row.getRow(),1));
-
     }
 
     @Test
-
     void shouldGetOkWhenFindByIdHall() {
-        Optional<Hall> optionalHall = Optional.of(setHall());
+        Optional<Hall> optionalHall = Optional.of(hall);
 
-        when(hallDAO.findById(id)).thenReturn(optionalHall);
+        when(hallDAO.findById(ID)).thenReturn(optionalHall);
 
-        Hall resultService = testedEntry.findById(id).get();
+        Hall result = testedEntry.findById(ID).get();
 
-        assertThat(resultService).isNotNull();
-
-        assertThat(resultService.getId()).isEqualTo(id);
-        assertThat(resultService.getName()).isEqualTo(NAME);
-        assertThat(resultService.getSeats()).isNotNull();
-        assertThat(resultService.getSeats().size()).isEqualTo(1);
-        resultService.getSeats()
+        assertThat(result).isNotNull();
+        assertThat(result.getId()).isEqualTo(ID);
+        assertThat(result.getName()).isEqualTo(NAME_FOR_HALL);
+        assertThat(result.getSeats()).isNotNull();
+        assertThat(result.getSeats().size()).isEqualTo(1);
+        result.getSeats()
                 .forEach(value -> assertEquals(1,value.getRow()));
     }
 
     @Test
-
     void shouldGetOkWhenFindByNameHall() {
-        Optional<Hall> optionalHall = Optional.of(setHall());
+        Optional<Hall> optionalHall = Optional.of(hall);
 
-        when(hallDAO.getHallByName(NAME)).thenReturn(optionalHall);
+        when(hallDAO.getHallByName(NAME_FOR_HALL)).thenReturn(optionalHall);
 
-        Hall resultService = testedEntry.findByName(NAME).get();
+        Hall result = testedEntry.findByName(NAME_FOR_HALL).get();
 
-        assertThat(resultService).isNotNull();
-
-        assertThat(resultService.getId()).isEqualTo(id);
-        assertThat(resultService.getName()).isEqualTo(NAME);
-        assertThat(resultService.getSeats()).isNotNull();
-        assertThat(resultService.getSeats().size()).isEqualTo(1);
-        resultService.getSeats().forEach(value ->
+        assertThat(result).isNotNull();
+        assertThat(result.getId()).isEqualTo(ID);
+        assertThat(result.getName()).isEqualTo(NAME_FOR_HALL);
+        assertThat(result.getSeats()).isNotNull();
+        assertThat(result.getSeats().size()).isEqualTo(1);
+        result.getSeats().forEach(value ->
                 assertEquals(1,value.getRow()));
     }
 
     @Test
     void shouldGetOkWhenDeleteHall() throws DeleteException {
-        Optional<Hall> optional = Optional.of(setHall());
+        Optional<Hall> optional = Optional.of(hall);
 
-        when(hallDAO.findById(id)).thenReturn(optional);
+        when(hallDAO.findById(ID)).thenReturn(optional);
 
-        String resultService = testedEntry.delete(id).toString();
+        String result = testedEntry.delete(ID).toString();
 
         assertEquals(
-                resultService,
+                result,
                 JsonResponse.responseMessage(
-                        String.format("Hall %s have been deleted",id)).toString());
-
+                        String.format("Hall %s have been deleted",ID)).toString());
     }
 }

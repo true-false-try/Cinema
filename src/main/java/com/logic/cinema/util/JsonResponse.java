@@ -9,7 +9,4 @@ public class JsonResponse {
         jsonObject.put("message", message);
         return jsonObject;
     }
-
-
-
 }

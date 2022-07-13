@@ -1,12 +1,23 @@
 package com.logic.cinema.model;
 
-import javax.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
 import java.time.LocalTime;
 
 @Entity
 @Table(name = "movies")
+@Data
+@Builder
+@AllArgsConstructor
 public class Movie {
-
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -33,87 +44,6 @@ public class Movie {
     @Column(name = "movie_time")
     private LocalTime movie_time;
 
-    public Movie() {
-
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public Integer getMinAge() {
-        return minAge;
-    }
-
-    public void setMinAge(Integer minAge) {
-        this.minAge = minAge;
-    }
-
-    public Double getRating() {
-        return rating;
-    }
-
-    public void setRating(Double rating) {
-        this.rating = rating;
-    }
-
-    public String getType() {
-        return type;
-    }
-
-    public void setType(String type) {
-        this.type = type;
-    }
-
-    public String getGenres() {
-        return genres;
-    }
-
-    public void setGenres(String genres) {
-        this.genres = genres;
-    }
-
-    public LocalTime getMovie_time() {
-        return movie_time;
-    }
-
-    public void setMovie_time(LocalTime movie_time) {
-        this.movie_time = movie_time;
-    }
-
-
-    @Override
-    public String toString() {
-        return "Movie{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", description='" + description + '\'' +
-                ", minAge=" + minAge +
-                ", rating=" + rating +
-                ", type='" + type + '\'' +
-                ", genres='" + genres + '\'' +
-                ", movie_time=" + movie_time +
-                '}';
-    }
+    public Movie() { }
 }
 

@@ -6,6 +6,7 @@ import com.logic.cinema.exeptions.DeleteException;
 import com.logic.cinema.exeptions.UpdateException;
 import com.logic.cinema.model.Hall;
 import com.logic.cinema.service.HallService;
+import lombok.AllArgsConstructor;
 import org.json.JSONObject;
 import org.postgresql.util.PSQLException;
 import org.springframework.http.HttpStatus;
@@ -16,13 +17,9 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/halls")
+@AllArgsConstructor
 public class HallController {
-
     private HallService hallService;
-
-    public HallController(HallService hallService) {
-        this.hallService = hallService;
-    }
 
     @GetMapping()
     public List<Hall> allHalls(){

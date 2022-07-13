@@ -3,18 +3,32 @@ package com.logic.cinema.model;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
 import java.util.List;
 
 @Entity
 @Table(name = "tickets")
-// @JsonIdentityInfo - use for solve the problem with recursion, when we use @OneToMany @ManyToOne
 @JsonIdentityInfo(
         generator = ObjectIdGenerators.PropertyGenerator.class,
-        property = "id")
+        property = "id")    // @JsonIdentityInfo - use for solve the problem with recursion, when we use @OneToMany @ManyToOne
+@Data
+@Builder
+@AllArgsConstructor
 public class Ticket {
-
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -32,51 +46,7 @@ public class Ticket {
     @OneToMany(mappedBy = "ticket")
     private List<Timeslot> timeSlot;
 
-    public Ticket() {
-
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public Tariff getTariff() {
-        return tariff;
-    }
-
-    public void setTariff(Tariff tariff) {
-        this.tariff = tariff;
-    }
-
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
-
-    public List<Timeslot> getTimeSlot() {
-        return timeSlot;
-    }
-
-    public void setTimeSlot(List<Timeslot> timeSlot) {
-        this.timeSlot = timeSlot;
-    }
-
-    @Override
-    public String toString() {
-        return "Ticket{" +
-                "id=" + id +
-                ", tariff=" + tariff +
-                ", user=" + user +
-                ", timeSlot=" + timeSlot +
-                '}';
-    }
+    public Ticket() { }
 }
 
 
