@@ -3,6 +3,7 @@ package com.logic.cinema.model;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -17,6 +18,7 @@ import java.time.LocalTime;
 @Data
 @Builder
 @AllArgsConstructor
+@NoArgsConstructor
 public class Movie {
     @Id
     @Column(name = "id")
@@ -44,6 +46,5 @@ public class Movie {
     @Column(name = "movie_time")
     private LocalTime movie_time;
 
-    public Movie() { }
 }
 

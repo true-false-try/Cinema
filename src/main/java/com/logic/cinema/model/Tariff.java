@@ -3,6 +3,7 @@ package com.logic.cinema.model;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -16,6 +17,7 @@ import javax.persistence.Table;
 @Data
 @Builder
 @AllArgsConstructor
+@NoArgsConstructor
 public class Tariff {
    @Id
    @Column(name = "id")
@@ -27,5 +29,5 @@ public class Tariff {
 
    @Column(name = "cost", length = 10, nullable = false)
    private Double cost;
-   public Tariff() { }
+
 }

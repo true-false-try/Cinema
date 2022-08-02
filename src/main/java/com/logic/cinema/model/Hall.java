@@ -1,10 +1,7 @@
 package com.logic.cinema.model;
 
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
+import com.fasterxml.jackson.annotation.*;
+import lombok.*;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -27,6 +24,7 @@ import java.util.Set;
 @Data
 @Builder
 @AllArgsConstructor
+@NoArgsConstructor
 public class Hall implements Cloneable {
     @Id
     @Column(name = "id")
@@ -38,13 +36,8 @@ public class Hall implements Cloneable {
     private HallsList name;
 
     @OneToMany(mappedBy = "hall", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JsonBackReference
     private Set<Seat> seats;
-
-    public Hall(){ }
-
-    public Hall(HallsList name){
-        this.name = name;
-    }
 
     @Override
     public Hall clone() throws CloneNotSupportedException {

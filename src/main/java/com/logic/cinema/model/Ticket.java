@@ -6,6 +6,7 @@ import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -28,6 +29,7 @@ import java.util.List;
 @Data
 @Builder
 @AllArgsConstructor
+@NoArgsConstructor
 public class Ticket {
     @Id
     @Column(name = "id")
@@ -46,7 +48,6 @@ public class Ticket {
     @OneToMany(mappedBy = "ticket")
     private List<Timeslot> timeSlot;
 
-    public Ticket() { }
 }
 
 

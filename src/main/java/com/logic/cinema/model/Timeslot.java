@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -28,6 +29,7 @@ import java.time.temporal.ChronoUnit;
 @Data
 @Builder
 @AllArgsConstructor
+@NoArgsConstructor
 public class Timeslot {
     @Id
     @Column(name = "id")
@@ -54,8 +56,6 @@ public class Timeslot {
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "ticket_id")
     private Ticket ticket;
-
-    public Timeslot() { }
 
     public Timeslot(LocalTime startTime){
         startTime.plus(movie.getMovie_time().getHour(), ChronoUnit.HOURS);

@@ -1,5 +1,6 @@
 package com.logic.cinema.service.impl;
 
+import com.logic.cinema.model.Hall;
 import com.logic.cinema.model.Seat;
 import com.logic.cinema.repository.SeatDAO;
 import com.logic.cinema.service.SeatService;
@@ -29,5 +30,9 @@ public class SeatServiceImpl implements SeatService {
         return seatDAO.getSeatByHall(id);
     }
 
+    @Override
+    public void saveAll(Set<Seat> seats) {
+        seatDAO.saveAll(seats);
+    }
 
 }

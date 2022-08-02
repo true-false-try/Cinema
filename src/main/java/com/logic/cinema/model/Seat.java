@@ -1,11 +1,7 @@
 package com.logic.cinema.model;
 
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
+import com.fasterxml.jackson.annotation.*;
+import lombok.*;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -25,9 +21,11 @@ import javax.persistence.Table;
 @JsonIdentityInfo(
         generator = ObjectIdGenerators.PropertyGenerator.class,
         property = "id")    // @JsonIdentityInfo - use for solve the problem with recursion, when we use @OneToMany @ManyToOne
+
 @Data
 @Builder
 @AllArgsConstructor
+@NoArgsConstructor
 public class Seat {
     @Id
     @Column(name = "id")
@@ -44,10 +42,9 @@ public class Seat {
     @Column(name = "status", length = 2, nullable = false)
     private StatusSeatsList status;
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.DETACH)
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.DETACH)
     @JoinColumn(name = "hall_id")
-    @JsonIgnore
+    @JsonManagedReference
     private Hall hall;
 
-    public Seat() { }
 }

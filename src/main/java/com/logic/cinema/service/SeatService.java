@@ -9,4 +9,5 @@ public interface SeatService {
     List<Seat> findAllSeats();
     Seat save(Seat hall);
     Set<Seat> findByHall(Long id);
+    void saveAll(Set<Seat> seats);
 }

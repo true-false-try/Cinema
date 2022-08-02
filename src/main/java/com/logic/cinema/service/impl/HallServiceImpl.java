@@ -4,6 +4,7 @@ import com.logic.cinema.exeptions.DeleteException;
 import com.logic.cinema.exeptions.UpdateException;
 import com.logic.cinema.model.Hall;
 import com.logic.cinema.model.HallsList;
+import com.logic.cinema.model.Seat;
 import com.logic.cinema.repository.HallDAO;
 import com.logic.cinema.service.HallService;
 import com.logic.cinema.util.JsonResponse;
@@ -14,17 +15,25 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 @Service
 @AllArgsConstructor
 public class HallServiceImpl implements HallService {
     private final HallDAO hallDAO;
+    private final SeatServiceImpl seatService;
 
     @Override
     @Transactional
     public Hall save(Hall hall) {
-        hall.setId(null);
-        hall.getSeats().forEach(entry -> entry.setHall(hall));
+        Set<Seat> seats = hall.getSeats();
+        hall.setSeats(null);
+        Hall storedHall = hallDAO.save(hall);
+        for (Seat seat:
+             seats) {
+            seat.setHall(storedHall);
+        }
+        seatService.saveAll(seats);
         return hallDAO.save(hall);
     }
 

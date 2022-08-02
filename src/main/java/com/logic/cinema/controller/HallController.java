@@ -7,9 +7,9 @@ import com.logic.cinema.exeptions.UpdateException;
 import com.logic.cinema.model.Hall;
 import com.logic.cinema.service.HallService;
 import lombok.AllArgsConstructor;
-import org.json.JSONObject;
 import org.postgresql.util.PSQLException;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -19,14 +19,15 @@ import java.util.List;
 @RequestMapping("/api/halls")
 @AllArgsConstructor
 public class HallController {
-    private HallService hallService;
+    private final HallService hallService;
 
     @GetMapping()
     public List<Hall> allHalls(){
         return hallService.findAllHalls();
     }
 
-    @PostMapping
+    @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE,
+            consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Hall> addHall(@RequestBody Hall hall) throws AddException {
         return ResponseEntity.ok().body(hallService.save(hall));
     }
@@ -35,6 +36,7 @@ public class HallController {
     public ResponseEntity<Hall> updateHall(@RequestBody Hall hall) throws UpdateException, PSQLException {
         return ResponseEntity.ok().body(hallService.update(hall));
     }
+
 
     @DeleteMapping("{id}")
     public ResponseEntity<String> deleteHall(@PathVariable(value = "id") Long id) throws DeleteException {
