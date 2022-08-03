@@ -7,6 +7,7 @@ import com.logic.cinema.service.SeatService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -31,8 +32,9 @@ public class SeatServiceImpl implements SeatService {
     }
 
     @Override
-    public void saveAll(Set<Seat> seats) {
-        seatDAO.saveAll(seats);
+    public Set<Seat> saveAll(Set<Seat> seats) {
+        List<Seat> listSet = seatDAO.saveAll(seats);
+        return new HashSet<>(listSet);
     }
 
 }

@@ -21,13 +21,12 @@ import java.util.List;
 public class HallController {
     private final HallService hallService;
 
-    @GetMapping()
+    @GetMapping
     public List<Hall> allHalls(){
         return hallService.findAllHalls();
     }
 
-    @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE,
-            consumes = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping
     public ResponseEntity<Hall> addHall(@RequestBody Hall hall) throws AddException {
         return ResponseEntity.ok().body(hallService.save(hall));
     }

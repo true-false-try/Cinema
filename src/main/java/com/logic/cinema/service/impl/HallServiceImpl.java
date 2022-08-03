@@ -27,14 +27,15 @@ public class HallServiceImpl implements HallService {
     @Transactional
     public Hall save(Hall hall) {
         Set<Seat> seats = hall.getSeats();
+        hall.setId(null);
         hall.setSeats(null);
         Hall storedHall = hallDAO.save(hall);
-        for (Seat seat:
-             seats) {
-            seat.setHall(storedHall);
-        }
-        seatService.saveAll(seats);
-        return hallDAO.save(hall);
+
+        seats.forEach(seat -> seat.setHall(storedHall));
+        seats = seatService.saveAll(seats);
+        storedHall.setSeats(seats);
+
+        return createResponseForSave(storedHall);
     }
 
     @Override
@@ -73,5 +74,10 @@ public class HallServiceImpl implements HallService {
         else throw new DeleteException("Hall not found for id: %s, please enter valid id", id);
 
         return JsonResponse.responseMessage(String.format("Hall %s have been deleted",id));
+    }
+
+    private Hall createResponseForSave(Hall hall) {
+        Optional<Hall> optionalHall = findById(hall.getId());
+        return optionalHall.get();
     }
 }

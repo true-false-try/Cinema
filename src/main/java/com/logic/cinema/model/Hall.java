@@ -1,7 +1,10 @@
 package com.logic.cinema.model;
 
 import com.fasterxml.jackson.annotation.*;
-import lombok.*;
+import lombok.Data;
+import lombok.Builder;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -18,9 +21,6 @@ import java.util.Set;
 
 @Entity
 @Table(name = "halls")
-@JsonIdentityInfo(
-        generator = ObjectIdGenerators.PropertyGenerator.class,
-        property = "id")    // @JsonIdentityInfo - use for solve the problem with recursion, when we use @OneToMany @ManyToOne
 @Data
 @Builder
 @AllArgsConstructor
@@ -35,8 +35,7 @@ public class Hall implements Cloneable {
     @Column(name = "name", length = 30, nullable = false)
     private HallsList name;
 
-    @OneToMany(mappedBy = "hall", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JsonBackReference
+    @OneToMany(mappedBy = "hall", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Set<Seat> seats;
 
     @Override
