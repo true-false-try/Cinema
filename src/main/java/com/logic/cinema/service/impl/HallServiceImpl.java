@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 import java.util.Set;
 
@@ -55,7 +56,7 @@ public class HallServiceImpl implements HallService {
 
     @Override
     @Transactional(readOnly = true)
-    public Optional<Hall> findById(Long id) {
+    public Optional<Hall> findById(Long id) throws NoSuchElementException {
         return hallDAO.findById(id);
     }
 

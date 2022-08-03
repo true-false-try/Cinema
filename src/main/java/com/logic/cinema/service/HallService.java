@@ -9,13 +9,14 @@ import org.json.JSONObject;
 import org.postgresql.util.PSQLException;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 
 public interface HallService {
     Hall save(Hall hall) throws AddException;
     Hall update(Hall hall) throws UpdateException, PSQLException;
     List<Hall> findAllHalls();
-    Optional<Hall> findById(Long id);
+    Optional<Hall> findById(Long id) throws NoSuchElementException;
     Optional<Hall> findByName(HallsList name);
     JSONObject delete(Long id) throws DeleteException;
 }
