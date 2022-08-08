@@ -5,7 +5,7 @@ import com.logic.cinema.dto.HallDTO;
 import com.logic.cinema.exeptions.AddException;
 import com.logic.cinema.exeptions.DeleteException;
 import com.logic.cinema.exeptions.UpdateException;
-import com.logic.cinema.mapper.impl.HallMapperImpl;
+import com.logic.cinema.mapper.MapStructMapper;
 import com.logic.cinema.model.Hall;
 import com.logic.cinema.service.HallService;
 import lombok.AllArgsConstructor;
@@ -31,25 +31,25 @@ import java.util.NoSuchElementException;
 @AllArgsConstructor
 public class HallController {
     private final HallService hallService;
-    private final HallMapperImpl mapper;
+    private final MapStructMapper mapper;
 
     @GetMapping
     public List<HallDTO> allHalls(){
-        return mapper.listDto(hallService.findAllHalls());
+        return mapper.toListHallsDTO(hallService.findAllHalls());
     }
     @GetMapping("{id}")
     public HallDTO findHallById(@PathVariable(value = "id") Long id) {
         Hall hall = hallService.findById(id).get();
-        return mapper.createDto(hall);
+        return mapper.toHallDTO(hall);
     }
     @PostMapping
     public ResponseEntity<HallDTO> addHall(@RequestBody Hall hall) throws AddException {
-        return ResponseEntity.ok().body(mapper.createDto(hallService.save(hall)));
+        return ResponseEntity.ok().body(mapper.toHallDTO(hallService.save(hall)));
     }
 
     @PutMapping
     public ResponseEntity<HallDTO> updateHall(@RequestBody Hall hall) throws UpdateException, PSQLException {
-        return ResponseEntity.ok().body(mapper.createDto(hallService.update(hall)));
+        return ResponseEntity.ok().body(mapper.toHallDTO(hallService.update(hall)));
     }
 
     @DeleteMapping("{id}")

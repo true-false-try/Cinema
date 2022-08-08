@@ -7,6 +7,8 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import java.util.Set;
 
 @Getter
@@ -15,8 +17,9 @@ import java.util.Set;
 public class HallDTO {
     @JsonProperty("Id")
     private Long id;
-    @JsonProperty("Halls")
-    private HallsList hallsList;
+    @JsonProperty("Name")
+    @Enumerated(EnumType.STRING)
+    private HallsList name;
     @JsonProperty("Seats")
     private Set<Seat> seats;
 }
