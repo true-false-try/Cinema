@@ -1,0 +1,42 @@
+version: '3.0'
+services:
+
+  app:
+    build:
+      dockerfile: Dockerfile
+    links:
+      - postgres
+      - liquibase
+    ports:
+      - "8888:8888"
+    depends_on:
+      - postgres
+      - liquibase
+
+
+  postgres:
+    image: 'postgres:13'
+    container_name: 'database'
+    restart: always
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: qwerty
+      POSTGRES_DB: cinema
+
+  liquibase:
+    image: 'liquibase/liquibase'
+    links:
+      - postgres
+    container_name: liquibase
+    command: --changeLogFile=db.changelog-master.yaml --url=jdbc:postgresql://0.0.0.0:5432/cinema update
+    volumes:
+      - /home/yevh/Cinema/src/main/resources/db.changelog/db.changelog-master.yaml
+    depends_on:
+      - postgres
+
+
+
+
+
