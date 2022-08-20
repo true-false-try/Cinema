@@ -1,6 +1,5 @@
 package com.logic.cinema.model;
 
-import com.fasterxml.jackson.annotation.*;
 import lombok.Data;
 import lombok.Builder;
 import lombok.AllArgsConstructor;

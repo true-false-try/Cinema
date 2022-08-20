@@ -7,8 +7,9 @@ import com.logic.cinema.model.HallsList;
 import com.logic.cinema.model.Seat;
 import com.logic.cinema.repository.HallDAO;
 import com.logic.cinema.service.HallService;
+import com.logic.cinema.service.SeatService;
 import com.logic.cinema.util.JsonResponse;
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.json.JSONObject;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -19,10 +20,10 @@ import java.util.Optional;
 import java.util.Set;
 
 @Service
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class HallServiceImpl implements HallService {
     private final HallDAO hallDAO;
-    private final SeatServiceImpl seatService;
+    private final SeatService seatService;
 
     @Override
     @Transactional
