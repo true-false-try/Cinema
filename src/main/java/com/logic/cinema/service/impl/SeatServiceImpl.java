@@ -1,7 +1,9 @@
 package com.logic.cinema.service.impl;
 
+import com.logic.cinema.dto.SeatDTO;
 import com.logic.cinema.exeptions.DeleteException;
 import com.logic.cinema.exeptions.UpdateException;
+import com.logic.cinema.mapper.MapStructMapper;
 import com.logic.cinema.model.Hall;
 import com.logic.cinema.model.Seat;
 import com.logic.cinema.repository.SeatDAO;
@@ -22,11 +24,14 @@ public class SeatServiceImpl implements SeatService {
 
     private final HallService hallService;
 
+    private final MapStructMapper mapper;
+
     @Autowired
     // Solved cycle dependency with annotation @Lazy
-    public SeatServiceImpl(SeatDAO seatDAO, @Lazy HallService hallService) {
+    public SeatServiceImpl(SeatDAO seatDAO, @Lazy HallService hallService, MapStructMapper mapper) {
         this.seatDAO = seatDAO;
         this.hallService = hallService;
+        this.mapper = mapper;
     }
 
     @Override
@@ -49,7 +54,7 @@ public class SeatServiceImpl implements SeatService {
 
     @Override
     @Transactional
-    public Set<Seat> save(Hall hall) throws UpdateException, NoSuchElementException {
+    public Set<SeatDTO> save(Hall hall) throws UpdateException, NoSuchElementException {
         Optional<Hall> findHall = hallService.findById(hall.getId());
         if(findHall.isPresent()) {
             Set<Seat> savedSeats = findHall.get().getSeats();
@@ -60,27 +65,26 @@ public class SeatServiceImpl implements SeatService {
             seatDAO.saveAll(savedSeats);
         }
 
-        return findHall.get().getSeats();
+        return mapper.toListSeatsDTO(findHall.get().getSeats());
     }
 
     @Override
     @Transactional
     public Set<Seat> saveAll(Set<Seat> seats) {
         List<Seat> listSet = seatDAO.saveAll(seats);
-
         return new HashSet<>(listSet);
     }
 
     @Override
     @Transactional
-    public Seat update(Hall hall, Long seatId) throws UpdateException {
+    public SeatDTO update(Hall hall, Long seatId) throws UpdateException {
         Optional<Seat> seatFind = seatDAO.findSeatByIdAndHallId(seatId, hall.getId());
         Seat updateSeat = hall.getSeats().stream().findFirst().get();
 
         if (seatFind.isPresent()) {
                 updateSeat.setId(seatId);
                 updateSeat.setHall(hall);
-            return seatDAO.save(updateSeat);
+            return mapper.toSeatDTO(seatDAO.save(updateSeat));
         } else throw new UpdateException("Wasn't find id number , maybe this id is wrong");
     }
 
@@ -108,4 +112,17 @@ public class SeatServiceImpl implements SeatService {
 
         return newSeats;
     }
+
+    /**
+     * Convert in DTO methods
+     * @return Object DTO or something collection that include Object DTO
+     */
+    public List<SeatDTO> dtoFindAllSeats() { return mapper.toListSeatsDTO(findAllSeats()); }
+
+    public SeatDTO dtoFindById(Long id) {return mapper.toSeatDTO(findById(id).get());}
+
+    public Set<SeatDTO> dtoFindSeatsByHallId(Long id) {
+        return mapper.toListSeatsDTO(findSeatsByHallId(id));
+    }
+
 }
