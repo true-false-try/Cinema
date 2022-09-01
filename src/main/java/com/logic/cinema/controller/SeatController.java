@@ -52,8 +52,9 @@ public class SeatController {
     }
 
     @DeleteMapping("{id}")
-    public ResponseEntity<JSONObject> deleteSeat(@PathVariable(value = "id") Long id) throws DeleteException {
-        return ResponseEntity.ok().body(seatService.delete(id));
+    public void deleteSeat(@PathVariable(value = "id") Long id) throws DeleteException {
+        seatService.delete(id);
+
     }
 
     @ExceptionHandler({DeleteException.class})

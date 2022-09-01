@@ -21,6 +21,6 @@ public interface SeatService {
     Set<SeatDTO> save(Hall hall) throws UpdateException, NoSuchElementException;
     Set<Seat> saveAll(Set<Seat> seats);
     SeatDTO update(Hall hall, Long id) throws UpdateException;
-    JSONObject delete(Long id) throws DeleteException;
+    void delete(Long id) throws DeleteException;
 
 }

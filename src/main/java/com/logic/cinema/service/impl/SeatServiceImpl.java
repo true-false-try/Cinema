@@ -90,12 +90,10 @@ public class SeatServiceImpl implements SeatService {
 
     @Override
     @Transactional
-    public JSONObject delete(Long id) throws DeleteException {
+    public void delete(Long id) throws DeleteException {
         if (seatDAO.findById(id).isPresent()) {
-            seatDAO.deleteById(id);;
+            seatDAO.deleteById(id);
         } else throw new DeleteException("Seat not found for id: %s, please enter valid id", id);
-
-        return JsonResponse.responseMessage(String.format("Seat %s have been deleted",id));
 
     }
     private Set<Seat> checkingForUniqueSeat(Set<Seat> seats) throws UpdateException {
