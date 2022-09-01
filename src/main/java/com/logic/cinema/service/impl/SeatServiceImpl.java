@@ -60,7 +60,7 @@ public class SeatServiceImpl implements SeatService {
             Set<Seat> savedSeats = findHall.get().getSeats();
             Set<Seat> newSeats = hall.getSeats();
 
-            checkingForUniqueAndMaxSizeSeat(newSeats).forEach(value -> value.setHall(hall));
+            checkingForUniqueSeat(newSeats).forEach(value -> value.setHall(hall));
             savedSeats.addAll(hall.getSeats());
             seatDAO.saveAll(savedSeats);
         }
@@ -98,7 +98,7 @@ public class SeatServiceImpl implements SeatService {
         return JsonResponse.responseMessage(String.format("Seat %s have been deleted",id));
 
     }
-    private Set<Seat> checkingForUniqueAndMaxSizeSeat(Set<Seat> seats) throws UpdateException {
+    private Set<Seat> checkingForUniqueSeat(Set<Seat> seats) throws UpdateException {
         Set<Seat> newSeats  = new HashSet<>();
 
         for (Seat seat:

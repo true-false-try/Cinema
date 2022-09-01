@@ -13,6 +13,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.EnumType;
 import javax.persistence.GenerationType;
 import javax.persistence.FetchType;
+import javax.validation.constraints.Digits;
+import javax.validation.constraints.Size;
 
 import lombok.Builder;
 import lombok.AllArgsConstructor;
@@ -36,11 +38,13 @@ public class Seat {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "row", length = 20, nullable = false, unique = true)
-    private int row;
+    @Column(name = "row", nullable = false, unique = true)
+    @Size(min = 1, max = 12)
+    private Integer row;
 
-    @Column(name = "seat", length = 100, nullable = false, unique = true)
-    private int seat;
+    @Column(name = "seat", nullable = false, unique = true)
+    @Size(min = 1, max = 10)
+    private Integer seat;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "status", length = 2, scale = 10, nullable = false)
