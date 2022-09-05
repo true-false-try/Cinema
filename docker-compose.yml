@@ -30,9 +30,9 @@ services:
     links:
       - postgres
     container_name: liquibase
-    command: --changeLogFile=db.changelog-master.yaml --url=jdbc:postgresql://0.0.0.0:5432/cinema update
+    command: --changeLogFile=db.changelog-master.yaml --url=jdbc:postgresql://172.18.0.2:5432/cinema update --username=postgres --password=qwerty
     volumes:
-      - /home/yevh/Cinema/src/main/resources/db.changelog/db.changelog-master.yaml
+      - ./db.changelog/db.changelog-master.yaml:/app
     depends_on:
       - postgres
 
