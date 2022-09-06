@@ -2,17 +2,13 @@ version: '3.0'
 services:
 
   app:
-    build:
-      dockerfile: Dockerfile
+    build: .
     links:
       - postgres
-      - liquibase
     ports:
       - "8888:8888"
     depends_on:
       - postgres
-      - liquibase
-
 
   postgres:
     image: 'postgres:13'
@@ -24,19 +20,3 @@ services:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: qwerty
       POSTGRES_DB: cinema
-
-  liquibase:
-    image: 'liquibase/liquibase'
-    links:
-      - postgres
-    container_name: liquibase
-    command: --changeLogFile=db.changelog-master.yaml --url=jdbc:postgresql://172.18.0.2:5432/cinema update --username=postgres --password=qwerty
-    volumes:
-      - ./db.changelog/db.changelog-master.yaml:/app
-    depends_on:
-      - postgres
-
-
-
-
-
