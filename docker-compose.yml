@@ -1,6 +1,5 @@
-version: '3.0'
+version: '1.0'
 services:
-
   app:
     build: .
     links:
@@ -17,6 +16,7 @@ services:
     ports:
       - "5432:5432"
     environment:
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: qwerty
-      POSTGRES_DB: cinema
+      POSTGRES_USER: ${DB_CLIENT_USER}
+      POSTGRES_PASSWORD: ${DB_CLIENT_PWD}
+      POSTGRES_DB: ${DB_NAME}
+
