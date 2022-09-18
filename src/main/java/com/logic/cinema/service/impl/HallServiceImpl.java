@@ -1,15 +1,16 @@
 package com.logic.cinema.service.impl;
 
+import com.logic.cinema.dto.HallDTO;
 import com.logic.cinema.exeptions.DeleteException;
 import com.logic.cinema.exeptions.UpdateException;
+import com.logic.cinema.mapper.HallMapper;
 import com.logic.cinema.model.Hall;
 import com.logic.cinema.model.HallsList;
 import com.logic.cinema.model.Seat;
 import com.logic.cinema.repository.HallDAO;
 import com.logic.cinema.service.HallService;
-import com.logic.cinema.util.JsonResponse;
-import lombok.AllArgsConstructor;
-import org.json.JSONObject;
+import com.logic.cinema.service.SeatService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -19,14 +20,16 @@ import java.util.Optional;
 import java.util.Set;
 
 @Service
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class HallServiceImpl implements HallService {
     private final HallDAO hallDAO;
-    private final SeatServiceImpl seatService;
+    private final SeatService seatService;
+
+    private final HallMapper mapper;
 
     @Override
     @Transactional
-    public Hall save(Hall hall) {
+    public HallDTO save(Hall hall) {
         Set<Seat> seats = hall.getSeats();
         hall.setId(null);
         hall.setSeats(null);
@@ -41,44 +44,43 @@ public class HallServiceImpl implements HallService {
 
     @Override
     @Transactional
-    public Hall update(Hall hall) throws UpdateException {
-        Optional<Hall> hallFind = findById(hall.getId());
+    public HallDTO update(Hall hall) throws UpdateException {
+        Optional<HallDTO> hallFind = findById(hall.getId());
         if (hallFind.isPresent()) {
-            return hallDAO.save(hall);
+            return mapper.toHallDTO(hallDAO.save(hall));
         } else throw new UpdateException("Wasn't find id number, maybe this id is wrong");
     }
 
     @Override
     @Transactional(readOnly = true)
-    public List<Hall> findAllHalls() {
-        return hallDAO.findAll();
+    public List<HallDTO> findAllHalls() {
+        return mapper.toHallDTO(hallDAO.findAll());
     }
 
     @Override
     @Transactional(readOnly = true)
-    public Optional<Hall> findById(Long id) throws NoSuchElementException {
-        return hallDAO.findById(id);
+    public Optional<HallDTO> findById(Long id) throws NoSuchElementException {
+        return mapper.toHallDTO(hallDAO.findById(id));
     }
 
     @Override
     @Transactional(readOnly = true)
-    public Optional<Hall> findByName(HallsList name) {
-        return hallDAO.getHallByName(name);
+    public Optional<HallDTO> findByName(HallsList name) {
+        return mapper.toHallDTO(hallDAO.getHallByName(name));
     }
 
     @Override
     @Transactional
-    public JSONObject delete(Long id) throws DeleteException {
+    public void delete(Long id) throws DeleteException {
         if (hallDAO.findById(id).isPresent()) {
             hallDAO.deleteById(id);
         }
         else throw new DeleteException("Hall not found for id: %s, please enter valid id", id);
 
-        return JsonResponse.responseMessage(String.format("Hall %s have been deleted",id));
     }
 
-    private Hall createResponseForSave(Hall hall) {
-        Optional<Hall> optionalHall = findById(hall.getId());
+    private HallDTO createResponseForSave(Hall hall) {
+        Optional<HallDTO> optionalHall = findById(hall.getId());
         return optionalHall.get();
     }
 }
