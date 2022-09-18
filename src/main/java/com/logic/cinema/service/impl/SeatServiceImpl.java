@@ -1,16 +1,15 @@
 package com.logic.cinema.service.impl;
 
+import com.logic.cinema.dto.HallDTO;
 import com.logic.cinema.dto.SeatDTO;
 import com.logic.cinema.exeptions.DeleteException;
 import com.logic.cinema.exeptions.UpdateException;
-import com.logic.cinema.mapper.MapStructMapper;
+import com.logic.cinema.mapper.SeatMapper;
 import com.logic.cinema.model.Hall;
 import com.logic.cinema.model.Seat;
 import com.logic.cinema.repository.SeatDAO;
 import com.logic.cinema.service.HallService;
 import com.logic.cinema.service.SeatService;
-import com.logic.cinema.util.JsonResponse;
-import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
@@ -24,11 +23,11 @@ public class SeatServiceImpl implements SeatService {
 
     private final HallService hallService;
 
-    private final MapStructMapper mapper;
+    private final SeatMapper mapper;
 
     @Autowired
     // Solved cycle dependency with annotation @Lazy
-    public SeatServiceImpl(SeatDAO seatDAO, @Lazy HallService hallService, MapStructMapper mapper) {
+    public SeatServiceImpl(SeatDAO seatDAO, @Lazy HallService hallService, SeatMapper mapper) {
         this.seatDAO = seatDAO;
         this.hallService = hallService;
         this.mapper = mapper;
@@ -55,7 +54,7 @@ public class SeatServiceImpl implements SeatService {
     @Override
     @Transactional
     public Set<SeatDTO> save(Hall hall) throws UpdateException, NoSuchElementException {
-        Optional<Hall> findHall = hallService.findById(hall.getId());
+        Optional<HallDTO> findHall = hallService.findById(hall.getId());
         if(findHall.isPresent()) {
             Set<Seat> savedSeats = findHall.get().getSeats();
             Set<Seat> newSeats = hall.getSeats();
@@ -117,7 +116,7 @@ public class SeatServiceImpl implements SeatService {
      */
     public List<SeatDTO> dtoFindAllSeats() { return mapper.toListSeatsDTO(findAllSeats()); }
 
-    public SeatDTO dtoFindById(Long id) {return mapper.toSeatDTO(findById(id).get());}
+    public SeatDTO dtoFindById(Long id) {return mapper  .toSeatDTO(findById(id).get());}
 
     public Set<SeatDTO> dtoFindSeatsByHallId(Long id) {
         return mapper.toListSeatsDTO(findSeatsByHallId(id));

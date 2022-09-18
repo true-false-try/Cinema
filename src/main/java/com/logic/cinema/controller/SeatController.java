@@ -7,7 +7,6 @@ import com.logic.cinema.exeptions.UpdateException;
 import com.logic.cinema.model.Hall;
 import com.logic.cinema.service.impl.SeatServiceImpl;
 import lombok.AllArgsConstructor;
-import org.json.JSONObject;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
