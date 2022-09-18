@@ -1,14 +1,14 @@
 package com.logic.cinema.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.logic.cinema.dto.HallDTO;
+import com.logic.cinema.mapper.HallMapper;
 import com.logic.cinema.model.Hall;
 import com.logic.cinema.model.HallsList;
 import com.logic.cinema.model.Seat;
 import com.logic.cinema.model.StatusSeatsList;
 import com.logic.cinema.service.HallService;
 import com.logic.cinema.util.JsonResponse;
-import org.json.JSONObject;
-import org.junit.Before;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
@@ -22,7 +22,6 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
@@ -35,19 +34,20 @@ import static org.mockito.BDDMockito.given;
 class HallControllerTest {
     @Autowired
     private MockMvc mvc;
+    @Autowired
+    private HallMapper mapper;
     @MockBean
     private HallService hallService;
 
-    private static Hall hallFirst;
-    private static Hall hallForUpdate;
+    private static HallDTO hallFirst;
+    private static HallDTO hallForUpdate;
 
-    private static List<Hall> listWithOneHall;
-    private static List<Hall> listWithManyHall;
+    private static List<HallDTO> listWithOneHall;
+    private static List<HallDTO> listWithManyHall;
 
     @BeforeEach
     void initHall() throws CloneNotSupportedException {
-
-        hallFirst = Hall.builder()
+        Hall defaultHall = Hall.builder()
                 .id(1L)
                 .name(HallsList.ORANGE)
                 .seats(Set.of(
@@ -58,11 +58,13 @@ class HallControllerTest {
                                 .status(StatusSeatsList.AVAILABLE).build()))
                 .build();
 
-        hallForUpdate = hallFirst.clone();
+        hallFirst = mapper.toHallDTO(defaultHall);
+
+        hallForUpdate = mapper.toHallDTO(defaultHall.clone());
         hallForUpdate.setId(null);
         hallForUpdate.setName(HallsList.YELLOW);
 
-        Hall hallTwice = hallFirst.clone();
+        HallDTO hallTwice = mapper.toHallDTO(defaultHall.clone());
         hallTwice.setId(2L);
         hallTwice.setName(HallsList.WHITE);
         hallTwice.setSeats( Set.of(Seat.builder()
@@ -72,7 +74,7 @@ class HallControllerTest {
                 .status(StatusSeatsList.AVAILABLE)
                 .build()));
 
-        Hall hallThird = hallFirst.clone();
+        HallDTO hallThird = mapper.toHallDTO(defaultHall.clone());
         hallThird.setId(3L);
         hallThird.setName(HallsList.BLACK);
         hallThird.setSeats( Set.of(Seat.builder()
@@ -172,17 +174,7 @@ class HallControllerTest {
     @Test
     void shouldGetDeleteHall() throws Exception {
 
-        JSONObject okResponse = JsonResponse.responseMessage(String.format("Hall %s have been deleted",1L));
 
-        given(hallService.delete(hallFirst.getId())).willReturn(okResponse);
-        System.out.println(okResponse);
-
-        mvc.perform(MockMvcRequestBuilders.delete(
-                String.format("/api/halls/%s", hallFirst.getId()))
-                        .contentType(MediaType.APPLICATION_JSON_VALUE)
-                        .accept(MediaType.APPLICATION_JSON))
-                .andExpect(MockMvcResultMatchers.status().isOk())
-                .andExpect(MockMvcResultMatchers.content().json(String.valueOf(okResponse)));
     }
 
     private static String asJsonString(Object object) {

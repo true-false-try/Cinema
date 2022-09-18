@@ -5,6 +5,7 @@ import com.logic.cinema.exeptions.AddException;
 import com.logic.cinema.exeptions.DeleteException;
 import com.logic.cinema.exeptions.UpdateException;
 import com.logic.cinema.model.Hall;
+import com.logic.cinema.service.SeatService;
 import com.logic.cinema.service.impl.SeatServiceImpl;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -20,8 +21,7 @@ import java.util.NoSuchElementException;
 @RequestMapping("/api/seat")
 @AllArgsConstructor
 public class SeatController {
-    private final SeatServiceImpl seatService;
-
+    private final SeatService seatService;
     @GetMapping
     public List<SeatDTO> allSeats() {
         return seatService.dtoFindAllSeats();

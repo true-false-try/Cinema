@@ -7,6 +7,7 @@ import com.logic.cinema.exeptions.DeleteException;
 import com.logic.cinema.exeptions.UpdateException;
 import com.logic.cinema.mapper.HallMapper;
 import com.logic.cinema.model.Hall;
+import com.logic.cinema.model.HallsList;
 import com.logic.cinema.service.HallService;
 import lombok.AllArgsConstructor;
 import org.postgresql.util.PSQLException;
@@ -38,8 +39,14 @@ public class HallController {
     }
     @GetMapping("{id}")
     public HallDTO findHallById(@PathVariable(value = "id") Long id) {
-        return hallService.findById(id).get();
+        return hallService.dtoFindById(id);
     }
+
+    @GetMapping("{name}")
+    public HallDTO findHallById(@PathVariable(value = "name") HallsList name) {
+        return hallService.dtoFindByName(name);
+    }
+
     @PostMapping
     public ResponseEntity<HallDTO> addHall(@RequestBody Hall hall) throws AddException {
         return ResponseEntity.ok().body(hallService.save(hall));

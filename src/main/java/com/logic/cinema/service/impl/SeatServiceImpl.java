@@ -1,6 +1,4 @@
 package com.logic.cinema.service.impl;
-
-import com.logic.cinema.dto.HallDTO;
 import com.logic.cinema.dto.SeatDTO;
 import com.logic.cinema.exeptions.DeleteException;
 import com.logic.cinema.exeptions.UpdateException;
@@ -54,7 +52,7 @@ public class SeatServiceImpl implements SeatService {
     @Override
     @Transactional
     public Set<SeatDTO> save(Hall hall) throws UpdateException, NoSuchElementException {
-        Optional<HallDTO> findHall = hallService.findById(hall.getId());
+        Optional<Hall> findHall = hallService.findById(hall.getId());
         if(findHall.isPresent()) {
             Set<Seat> savedSeats = findHall.get().getSeats();
             Set<Seat> newSeats = hall.getSeats();
@@ -116,7 +114,7 @@ public class SeatServiceImpl implements SeatService {
      */
     public List<SeatDTO> dtoFindAllSeats() { return mapper.toListSeatsDTO(findAllSeats()); }
 
-    public SeatDTO dtoFindById(Long id) {return mapper  .toSeatDTO(findById(id).get());}
+    public SeatDTO dtoFindById(Long id) {return mapper.toSeatDTO(findById(id).get());}
 
     public Set<SeatDTO> dtoFindSeatsByHallId(Long id) {
         return mapper.toListSeatsDTO(findSeatsByHallId(id));

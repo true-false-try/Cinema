@@ -1,6 +1,7 @@
 package com.logic.cinema.service.impl;
 
 import com.logic.cinema.dto.HallDTO;
+import com.logic.cinema.dto.SeatDTO;
 import com.logic.cinema.exeptions.DeleteException;
 import com.logic.cinema.exeptions.UpdateException;
 import com.logic.cinema.mapper.HallMapper;
@@ -24,7 +25,6 @@ import java.util.Set;
 public class HallServiceImpl implements HallService {
     private final HallDAO hallDAO;
     private final SeatService seatService;
-
     private final HallMapper mapper;
 
     @Override
@@ -45,7 +45,7 @@ public class HallServiceImpl implements HallService {
     @Override
     @Transactional
     public HallDTO update(Hall hall) throws UpdateException {
-        Optional<HallDTO> hallFind = findById(hall.getId());
+        Optional<Hall> hallFind = findById(hall.getId());
         if (hallFind.isPresent()) {
             return mapper.toHallDTO(hallDAO.save(hall));
         } else throw new UpdateException("Wasn't find id number, maybe this id is wrong");
@@ -59,14 +59,14 @@ public class HallServiceImpl implements HallService {
 
     @Override
     @Transactional(readOnly = true)
-    public Optional<HallDTO> findById(Long id) throws NoSuchElementException {
-        return mapper.toHallDTO(hallDAO.findById(id));
+    public Optional<Hall> findById(Long id) throws NoSuchElementException {
+        return hallDAO.findById(id);
     }
 
     @Override
     @Transactional(readOnly = true)
-    public Optional<HallDTO> findByName(HallsList name) {
-        return mapper.toHallDTO(hallDAO.getHallByName(name));
+    public Optional<Hall> findByName(HallsList name) {
+        return hallDAO.getHallByName(name);
     }
 
     @Override
@@ -80,7 +80,17 @@ public class HallServiceImpl implements HallService {
     }
 
     private HallDTO createResponseForSave(Hall hall) {
-        Optional<HallDTO> optionalHall = findById(hall.getId());
-        return optionalHall.get();
+        Optional<Hall> optionalHall = findById(hall.getId());
+        return mapper.toHallDTO(optionalHall.get());
+    }
+
+    /**
+     * Convert in DTO methods
+     * @return Object DTO or something collection that include Object DTO
+     */
+    public HallDTO dtoFindById(Long id) {return mapper.toHallDTO(findById(id).get());}
+
+    public HallDTO dtoFindByName(HallsList name) {
+        return mapper.toHallDTO(findByName(name).get());
     }
 }

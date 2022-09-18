@@ -10,6 +10,5 @@ import java.util.Optional;
 @Mapper(componentModel = "spring")
 public interface HallMapper {
     HallDTO toHallDTO(Hall hall);
-    Optional<HallDTO> toHallDTO(Optional<Hall> byId);
     List<HallDTO> toHallDTO(List<Hall> all);
 }

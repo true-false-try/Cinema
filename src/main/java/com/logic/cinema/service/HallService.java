@@ -17,7 +17,11 @@ public interface HallService {
     HallDTO save(Hall hall) throws AddException;
     HallDTO update(Hall hall) throws UpdateException, PSQLException;
     List<HallDTO> findAllHalls();
-    Optional<HallDTO> findById(Long id) throws NoSuchElementException;
-    Optional<HallDTO> findByName(HallsList name);
+    Optional<Hall> findById(Long id) throws NoSuchElementException;
+    Optional<Hall> findByName(HallsList name);
     void delete(Long id) throws DeleteException;
+
+    HallDTO dtoFindById(Long id);
+    public HallDTO dtoFindByName(HallsList name);
+
 }
