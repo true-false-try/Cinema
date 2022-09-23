@@ -15,11 +15,8 @@ import java.util.Set;
 @Setter
 @Builder
 public class HallDTO {
-    @JsonProperty("Id")
     private Long id;
-    @JsonProperty("Name")
     @Enumerated(EnumType.STRING)
     private HallsList name;
-    @JsonProperty("Seats")
     private Set<Seat> seats;
 }

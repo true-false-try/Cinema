@@ -10,12 +10,13 @@ import com.logic.cinema.model.Seat;
 import com.logic.cinema.model.StatusSeatsList;
 import com.logic.cinema.repository.HallDAO;
 import com.logic.cinema.service.SeatService;
-import com.logic.cinema.util.JsonResponse;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mapstruct.factory.Mappers;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.Spy;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.HashSet;
@@ -35,8 +36,10 @@ class HallServiceImplTest {
     private HallDAO hallDAO;
     @Mock
     private SeatService seatService;
-    @Mock
-    private HallMapper mapper;
+
+    @Spy
+    private HallMapper mapper = Mappers.getMapper(HallMapper.class);
+
     @InjectMocks
     private HallServiceImpl testedEntry;
 
@@ -65,6 +68,7 @@ class HallServiceImplTest {
 
         hallWithId = hallIdNull.clone();
         hallWithId.setId(1L);
+
 
         hallForUpdate = hallIdNull.clone();
         hallForUpdate.setName(NAME_FOR_UPDATE_HALL);
@@ -135,9 +139,10 @@ class HallServiceImplTest {
 
     @Test
     void shouldGetOkWhenDeleteHall() throws DeleteException {
-        Optional<Hall> optional = Optional.of(hallIdNull);
+        Optional<Hall> optional = Optional.of(hallWithId);
 
         when(hallDAO.findById(ID)).thenReturn(optional);
 
+        testedEntry.delete(ID);
     }
 }

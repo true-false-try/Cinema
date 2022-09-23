@@ -7,11 +7,13 @@ import com.logic.cinema.model.Hall;
 import com.logic.cinema.model.HallsList;
 import com.logic.cinema.model.Seat;
 import com.logic.cinema.model.StatusSeatsList;
+import com.logic.cinema.repository.HallDAO;
 import com.logic.cinema.service.HallService;
-import com.logic.cinema.util.JsonResponse;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
+import org.mapstruct.factory.Mappers;
+import org.mockito.Spy;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
@@ -34,16 +36,20 @@ import static org.mockito.BDDMockito.given;
 class HallControllerTest {
     @Autowired
     private MockMvc mvc;
-    @Autowired
-    private HallMapper mapper;
+    @Spy
+    private HallMapper mapper = Mappers.getMapper(HallMapper.class);
     @MockBean
     private HallService hallService;
+    @MockBean
+    private HallDAO hallDAO;
 
     private static HallDTO hallFirst;
     private static HallDTO hallForUpdate;
 
     private static List<HallDTO> listWithOneHall;
     private static List<HallDTO> listWithManyHall;
+
+    private static Long ID_NOT_NULL = 1L;
 
     @BeforeEach
     void initHall() throws CloneNotSupportedException {
@@ -61,7 +67,7 @@ class HallControllerTest {
         hallFirst = mapper.toHallDTO(defaultHall);
 
         hallForUpdate = mapper.toHallDTO(defaultHall.clone());
-        hallForUpdate.setId(null);
+        hallForUpdate.setId(ID_NOT_NULL);
         hallForUpdate.setName(HallsList.YELLOW);
 
         HallDTO hallTwice = mapper.toHallDTO(defaultHall.clone());
@@ -173,8 +179,13 @@ class HallControllerTest {
 
     @Test
     void shouldGetDeleteHall() throws Exception {
+        Optional<Hall> optional = hallDAO.findById(hallForUpdate.getId());
 
-
+        mvc.perform(MockMvcRequestBuilders.put("/api/halls")
+                        .content(asJsonString(optional))
+                        .contentType(MediaType.APPLICATION_JSON_VALUE)
+                        .accept(MediaType.APPLICATION_JSON))
+                .andExpect(MockMvcResultMatchers.status().isOk());
     }
 
     private static String asJsonString(Object object) {

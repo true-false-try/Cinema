@@ -1,7 +1,6 @@
 package com.logic.cinema.service.impl;
 
 import com.logic.cinema.dto.HallDTO;
-import com.logic.cinema.dto.SeatDTO;
 import com.logic.cinema.exeptions.DeleteException;
 import com.logic.cinema.exeptions.UpdateException;
 import com.logic.cinema.mapper.HallMapper;
