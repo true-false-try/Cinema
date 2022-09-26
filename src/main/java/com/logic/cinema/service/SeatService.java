@@ -6,8 +6,6 @@ import com.logic.cinema.exeptions.DeleteException;
 import com.logic.cinema.exeptions.UpdateException;
 import com.logic.cinema.model.Hall;
 import com.logic.cinema.model.Seat;
-import org.json.JSONObject;
-
 
 import java.util.List;
 import java.util.NoSuchElementException;

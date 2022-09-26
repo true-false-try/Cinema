@@ -1,4 +1,5 @@
 package com.logic.cinema.service.impl;
+
 import com.logic.cinema.dto.SeatDTO;
 import com.logic.cinema.exeptions.DeleteException;
 import com.logic.cinema.exeptions.UpdateException;
@@ -53,7 +54,7 @@ public class SeatServiceImpl implements SeatService {
     @Transactional
     public Set<SeatDTO> save(Hall hall) throws UpdateException, NoSuchElementException {
         Optional<Hall> findHall = hallService.findById(hall.getId());
-        if(findHall.isPresent()) {
+        if (findHall.isPresent()) {
             Set<Seat> savedSeats = findHall.get().getSeats();
             Set<Seat> newSeats = hall.getSeats();
 
@@ -79,8 +80,8 @@ public class SeatServiceImpl implements SeatService {
         Seat updateSeat = hall.getSeats().stream().findFirst().get();
 
         if (seatFind.isPresent()) {
-                updateSeat.setId(seatId);
-                updateSeat.setHall(hall);
+            updateSeat.setId(seatId);
+            updateSeat.setHall(hall);
             return mapper.toSeatDTO(seatDAO.save(updateSeat));
         } else throw new UpdateException("Wasn't find id number , maybe this id is wrong");
     }
@@ -93,14 +94,13 @@ public class SeatServiceImpl implements SeatService {
         } else throw new DeleteException("Seat not found for id: %s, please enter valid id", id);
 
     }
-    private Set<Seat> checkingForUniqueSeat(Set<Seat> seats) throws UpdateException {
-        Set<Seat> newSeats  = new HashSet<>();
 
-        for (Seat seat:
-             seats) {
+    private Set<Seat> checkingForUniqueSeat(Set<Seat> seats) throws UpdateException {
+        Set<Seat> newSeats = new HashSet<>();
+
+        for (Seat seat : seats) {
             if (seatDAO.findSeatsByRowAndSeat(seat.getRow(), seat.getSeat()).isPresent()) {
-                throw new UpdateException(
-                        String.format("Sorry but you have duplicate seat {row : %d, seat: %d}", seat.getRow(), seat.getSeat()));
+                throw new UpdateException(String.format("Sorry but you have duplicate seat {row : %d, seat: %d}", seat.getRow(), seat.getSeat()));
             }
             newSeats.add(seat);
         }
@@ -110,11 +110,17 @@ public class SeatServiceImpl implements SeatService {
 
     /**
      * Convert in DTO methods
+     *
      * @return Object DTO or something collection that include Object DTO
      */
-    public List<SeatDTO> dtoFindAllSeats() { return mapper.toListSeatsDTO(findAllSeats()); }
 
-    public SeatDTO dtoFindById(Long id) {return mapper.toSeatDTO(findById(id).get());}
+    public List<SeatDTO> dtoFindAllSeats() {
+        return mapper.toListSeatsDTO(findAllSeats());
+    }
+
+    public SeatDTO dtoFindById(Long id) {
+        return mapper.toSeatDTO(findById(id).get());
+    }
 
     public Set<SeatDTO> dtoFindSeatsByHallId(Long id) {
         return mapper.toListSeatsDTO(findSeatsByHallId(id));

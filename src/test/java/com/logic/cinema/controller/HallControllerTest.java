@@ -7,7 +7,6 @@ import com.logic.cinema.model.Hall;
 import com.logic.cinema.model.HallsList;
 import com.logic.cinema.model.Seat;
 import com.logic.cinema.model.StatusSeatsList;
-import com.logic.cinema.repository.HallDAO;
 import com.logic.cinema.service.HallService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -40,9 +39,8 @@ class HallControllerTest {
     private HallMapper mapper = Mappers.getMapper(HallMapper.class);
     @MockBean
     private HallService hallService;
-    @MockBean
-    private HallDAO hallDAO;
 
+    private static String URL_CRUD_OPERATIONS = "/api/halls";
     private static HallDTO hallFirst;
     private static HallDTO hallForUpdate;
 
@@ -52,7 +50,7 @@ class HallControllerTest {
     private static Long ID_NOT_NULL = 1L;
 
     @BeforeEach
-    void initHall() throws CloneNotSupportedException {
+    void init() throws CloneNotSupportedException {
         Hall defaultHall = Hall.builder()
                 .id(1L)
                 .name(HallsList.ORANGE)
@@ -99,7 +97,7 @@ class HallControllerTest {
 
         given(hallService.findAllHalls()).willReturn(listWithOneHall);
 
-        mvc.perform(MockMvcRequestBuilders.get("/api/halls")
+        mvc.perform(MockMvcRequestBuilders.get(URL_CRUD_OPERATIONS)
                 .contentType(MediaType.APPLICATION_JSON_VALUE))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.jsonPath("$.[0].id").value(1L))
@@ -116,7 +114,7 @@ class HallControllerTest {
 
         given(hallService.findAllHalls()).willReturn(listWithManyHall);
 
-        mvc.perform(MockMvcRequestBuilders.get("/api/halls")
+        mvc.perform(MockMvcRequestBuilders.get(URL_CRUD_OPERATIONS)
                         .contentType(MediaType.APPLICATION_JSON_VALUE))
                 .andExpect(MockMvcResultMatchers.status().isOk())
 
@@ -147,7 +145,7 @@ class HallControllerTest {
 
         given(hallService.save(any(Hall.class))).willReturn(hallFirst);
 
-        mvc.perform(MockMvcRequestBuilders.post("/api/halls")
+        mvc.perform(MockMvcRequestBuilders.post(URL_CRUD_OPERATIONS)
                         .content(asJsonString(hallFirst))
                         .contentType(MediaType.APPLICATION_JSON_VALUE)
                         .accept(MediaType.APPLICATION_JSON))
@@ -167,7 +165,7 @@ class HallControllerTest {
 
         Optional<Hall> optional = hallService.findById(hallForUpdate.getId());
 
-        mvc.perform(MockMvcRequestBuilders.put("/api/halls")
+        mvc.perform(MockMvcRequestBuilders.put(URL_CRUD_OPERATIONS)
                         .content(asJsonString(optional))
                         .contentType(MediaType.APPLICATION_JSON_VALUE)
                         .accept(MediaType.APPLICATION_JSON))
@@ -179,9 +177,9 @@ class HallControllerTest {
 
     @Test
     void shouldGetDeleteHall() throws Exception {
-        Optional<Hall> optional = hallDAO.findById(hallForUpdate.getId());
+        Optional<Hall> optional = hallService.findById(hallForUpdate.getId());
 
-        mvc.perform(MockMvcRequestBuilders.put("/api/halls")
+        mvc.perform(MockMvcRequestBuilders.put(URL_CRUD_OPERATIONS)
                         .content(asJsonString(optional))
                         .contentType(MediaType.APPLICATION_JSON_VALUE)
                         .accept(MediaType.APPLICATION_JSON))

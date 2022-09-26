@@ -52,7 +52,7 @@ class HallServiceImplTest {
     private static Hall hallForUpdate;
 
     @BeforeEach
-    void initHall() throws CloneNotSupportedException {
+    void init() throws CloneNotSupportedException {
         Set<Seat> seatsList = new HashSet<>(Set.of(
                 Seat.builder()
                         .id(1L)
