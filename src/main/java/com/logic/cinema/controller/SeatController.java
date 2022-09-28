@@ -5,8 +5,8 @@ import com.logic.cinema.exeptions.AddException;
 import com.logic.cinema.exeptions.DeleteException;
 import com.logic.cinema.exeptions.UpdateException;
 import com.logic.cinema.model.Hall;
-import com.logic.cinema.service.impl.SeatServiceImpl;
-import lombok.AllArgsConstructor;
+import com.logic.cinema.service.SeatService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -17,11 +17,10 @@ import java.util.List;
 import java.util.NoSuchElementException;
 
 @RestController
-@RequestMapping("/api/seat")
-@AllArgsConstructor
+@RequestMapping("/api/seats")
+@RequiredArgsConstructor
 public class SeatController {
-    private final SeatServiceImpl seatService;
-
+    private final SeatService seatService;
     @GetMapping
     public List<SeatDTO> allSeats() {
         return seatService.dtoFindAllSeats();

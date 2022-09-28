@@ -5,30 +5,21 @@ import com.logic.cinema.dto.HallDTO;
 import com.logic.cinema.exeptions.AddException;
 import com.logic.cinema.exeptions.DeleteException;
 import com.logic.cinema.exeptions.UpdateException;
-import com.logic.cinema.mapper.HallMapper;
 import com.logic.cinema.model.Hall;
+import com.logic.cinema.model.HallsList;
 import com.logic.cinema.service.HallService;
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.postgresql.util.PSQLException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.NoSuchElementException;
 
 @RestController
 @RequestMapping("/api/halls")
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class HallController {
     private final HallService hallService;
 
@@ -38,8 +29,14 @@ public class HallController {
     }
     @GetMapping("{id}")
     public HallDTO findHallById(@PathVariable(value = "id") Long id) {
-        return hallService.findById(id).get();
+        return hallService.dtoFindById(id);
     }
+
+    @GetMapping("{name}")
+    public HallDTO findHallById(@PathVariable(value = "name") HallsList name) {
+        return hallService.dtoFindByName(name);
+    }
+
     @PostMapping
     public ResponseEntity<HallDTO> addHall(@RequestBody Hall hall) throws AddException {
         return ResponseEntity.ok().body(hallService.save(hall));

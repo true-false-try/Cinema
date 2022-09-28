@@ -14,13 +14,9 @@ import javax.persistence.Enumerated;
 @Setter
 @Builder
 public class SeatDTO {
-    @JsonProperty("Id")
     private Long id;
-    @JsonProperty("Row")
     private int row;
-    @JsonProperty("Seat")
     private int seat;
-    @JsonProperty("Status")
     @Enumerated(EnumType.STRING)
     private StatusSeatsList status;
 }
