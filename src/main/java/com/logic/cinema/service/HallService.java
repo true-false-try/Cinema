@@ -1,5 +1,6 @@
 package com.logic.cinema.service;
 
+import com.logic.cinema.dto.HallDTO;
 import com.logic.cinema.exeptions.AddException;
 import com.logic.cinema.exeptions.DeleteException;
 import com.logic.cinema.exeptions.UpdateException;
@@ -13,10 +14,14 @@ import java.util.NoSuchElementException;
 import java.util.Optional;
 
 public interface HallService {
-    Hall save(Hall hall) throws AddException;
-    Hall update(Hall hall) throws UpdateException, PSQLException;
-    List<Hall> findAllHalls();
+    HallDTO save(Hall hall) throws AddException;
+    HallDTO update(Hall hall) throws UpdateException, PSQLException;
+    List<HallDTO> findAllHalls();
     Optional<Hall> findById(Long id) throws NoSuchElementException;
     Optional<Hall> findByName(HallsList name);
-    JSONObject delete(Long id) throws DeleteException;
+    void delete(Long id) throws DeleteException;
+
+    HallDTO dtoFindById(Long id);
+    public HallDTO dtoFindByName(HallsList name);
+
 }
