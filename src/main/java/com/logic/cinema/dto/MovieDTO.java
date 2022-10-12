@@ -7,6 +7,7 @@ import lombok.Setter;
 
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import java.time.LocalTime;
 
 @Getter
 @Setter
@@ -20,4 +21,5 @@ public class MovieDTO {
     private Double rating;
     @Enumerated(EnumType.STRING)
     private MovieGenres genre;
+    private LocalTime movie_time;
 }

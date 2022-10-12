@@ -77,7 +77,7 @@ public class HallController {
     }
     @ExceptionHandler({NoSuchElementException.class})
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
-    public String getDeleteExceptionMessage(NoSuchElementException exception){
+    public String getNoSuchElementExceptionMessage(NoSuchElementException exception){
         return exception.getMessage();
     }
 
