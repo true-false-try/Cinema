@@ -30,6 +30,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.DELETE, "/api/tickets").hasRole(Role.SUPPORT_L1.name())
                 .antMatchers(HttpMethod.POST, "/api/halls").hasRole(Role.SUPPORT_L2.name())
                 .antMatchers(HttpMethod.GET, "/api/**").hasRole(Role.ADMIN.name())
+                .antMatchers(HttpMethod.GET, "/api/movies").hasRole(Role.ADMIN.name())
                 .anyRequest()
                 .authenticated()
                 .and()

@@ -19,8 +19,11 @@ databaseChangeLog:
                     unique: true
                     nullable: false
               - column:
+                  name: year
+                  type: INT
+              - column:
                   name: description
-                  type: varchar(128)
+                  type: varchar(500)
               - column:
                   name: min_age
                   type: INT
@@ -30,12 +33,7 @@ databaseChangeLog:
                   constraints:
                     nullable: false
               - column:
-                  name: type
-                  type: varchar(50)
-                  constraints:
-                    nullable: false
-              - column:
-                  name: genres
+                  name: genre
                   type: varchar(50)
                   constraints:
                     nullable: false
