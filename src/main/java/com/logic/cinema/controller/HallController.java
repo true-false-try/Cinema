@@ -32,8 +32,8 @@ public class HallController {
         return hallService.dtoFindById(id);
     }
 
-    @GetMapping("{name}")
-    public HallDTO findHallById(@PathVariable(value = "name") HallsList name) {
+    @GetMapping("/name/{name}")
+    public HallDTO findHallByName(@PathVariable(value = "name") HallsList name) {
         return hallService.dtoFindByName(name);
     }
 

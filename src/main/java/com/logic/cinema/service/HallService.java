@@ -6,7 +6,6 @@ import com.logic.cinema.exeptions.DeleteException;
 import com.logic.cinema.exeptions.UpdateException;
 import com.logic.cinema.model.Hall;
 import com.logic.cinema.model.HallsList;
-import org.json.JSONObject;
 import org.postgresql.util.PSQLException;
 
 import java.util.List;
@@ -22,6 +21,6 @@ public interface HallService {
     void delete(Long id) throws DeleteException;
 
     HallDTO dtoFindById(Long id);
-    public HallDTO dtoFindByName(HallsList name);
+    HallDTO dtoFindByName(HallsList name);
 
 }
