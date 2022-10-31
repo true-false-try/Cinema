@@ -68,6 +68,7 @@ public class MovieServiceImpl implements MovieService {
         return movieDAO.findByNameIgnoreCase(name);
     }
 
+
     @Override
     public MovieDTO dtoFindById(Long id) {
         return mapper.toMovieDTO(findMovieById(id).get());

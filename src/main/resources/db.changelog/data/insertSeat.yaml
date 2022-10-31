@@ -30,6 +30,21 @@ databaseChangeLog:
                   value: 2
               - column:
                   name: status
+                  value: "AVAILABLE"
+              - column:
+                  name: hall_id
+                  value: 1
+        - insert:
+            tableName: seats
+            columns:
+              - column:
+                  name: row
+                  value: 1
+              - column:
+                  name: seat
+                  value: 3
+              - column:
+                  name: status
                   value: "NOT_AVAILABLE"
               - column:
                   name: hall_id
@@ -42,7 +57,52 @@ databaseChangeLog:
                   value: 1
               - column:
                   name: seat
+                  value: 4
+              - column:
+                  name: status
+                  value: "NOT_AVAILABLE"
+              - column:
+                  name: hall_id
+                  value: 1
+        - insert:
+            tableName: seats
+            columns:
+              - column:
+                  name: row
+                  value: 1
+              - column:
+                  name: seat
+                  value: 1
+              - column:
+                  name: status
+                  value: "AVAILABLE"
+              - column:
+                  name: hall_id
                   value: 2
+        - insert:
+            tableName: seats
+            columns:
+              - column:
+                  name: row
+                  value: 1
+              - column:
+                  name: seat
+                  value: 2
+              - column:
+                  name: status
+                  value: "AVAILABLE"
+              - column:
+                  name: hall_id
+                  value: 2
+        - insert:
+            tableName: seats
+            columns:
+              - column:
+                  name: row
+                  value: 1
+              - column:
+                  name: seat
+                  value: 3
               - column:
                   name: status
                   value: "AVAILABLE"

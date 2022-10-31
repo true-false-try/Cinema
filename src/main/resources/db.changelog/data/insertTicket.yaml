@@ -1,0 +1,17 @@
+databaseChangeLog:
+  - changeSet:
+      id: ins_tickets
+      author: Chekhovskyi
+      changes:
+        - insert:
+            tableName: tickets
+            columns:
+              - column:
+                  name: tariff_id
+                  value: 1
+              - column:
+                  name: user_id
+                  value: 1
+              - column:
+                  name: timeslot_id
+                  value: 1

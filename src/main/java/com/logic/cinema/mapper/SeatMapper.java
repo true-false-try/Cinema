@@ -10,7 +10,6 @@ import java.util.Set;
 
 @Mapper(componentModel = "spring", injectionStrategy = InjectionStrategy.CONSTRUCTOR)
 public interface SeatMapper {
-
     SeatDTO toSeatDTO(Seat seat);
     List<SeatDTO> toListSeatsDTO(List<Seat> seats);
     Set<SeatDTO> toListSeatsDTO(Set<Seat> seats);

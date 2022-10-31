@@ -6,6 +6,7 @@ import com.logic.cinema.exeptions.UpdateException;
 import com.logic.cinema.mapper.SeatMapper;
 import com.logic.cinema.model.Hall;
 import com.logic.cinema.model.Seat;
+import com.logic.cinema.model.StatusSeatsList;
 import com.logic.cinema.repository.SeatDAO;
 import com.logic.cinema.service.HallService;
 import com.logic.cinema.service.SeatService;
@@ -48,6 +49,12 @@ public class SeatServiceImpl implements SeatService {
     @Transactional(readOnly = true)
     public Set<Seat> findSeatsByHallId(Long id) {
         return seatDAO.findSeatsByHallId(id);
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public Set<Seat> findSeatsByHallIdAndStatus(Long id, StatusSeatsList status) {
+        return seatDAO.findSeatsByHallIdAndStatus(id, status);
     }
 
     @Override

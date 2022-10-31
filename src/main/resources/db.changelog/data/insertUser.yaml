@@ -1,0 +1,36 @@
+databaseChangeLog:
+  - changeSet:
+      id: ins_users
+      author: Chekhovskyi
+      changes:
+        - insert:
+            tableName: users
+            columns:
+              - column:
+                  name: name
+                  value: 'Alex'
+              - column:
+                  name: login
+                  value: 'alex@gamil.com'
+              - column:
+                  name: password
+                  value: 'qwerty'
+              - column:
+                  name: age
+                  value: 23
+
+        - insert:
+            tableName: users
+            columns:
+              - column:
+                  name: name
+                  value: 'Oleg'
+              - column:
+                  name: login
+                  value: 'oleg@gamil.com'
+              - column:
+                  name: password
+                  value: 'qwerty'
+              - column:
+                  name: age
+                  value: 18

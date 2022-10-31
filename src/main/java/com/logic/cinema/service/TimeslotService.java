@@ -2,8 +2,8 @@ package com.logic.cinema.service;
 
 import com.logic.cinema.model.Timeslot;
 
-import java.util.List;
+import java.util.Optional;
 
 public interface TimeslotService {
-    List<Timeslot> findAllTimeslots();
+    Optional<Timeslot> findTimeslotByMovieId(Long id);
 }

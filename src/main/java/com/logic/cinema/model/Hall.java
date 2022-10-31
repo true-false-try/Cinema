@@ -32,7 +32,7 @@ public class Hall implements Cloneable {
 
     @Enumerated(EnumType.STRING)
     @Column(name = "name", length = 30, nullable = false)
-    private HallsList name;
+    private HallsName name;
 
     @OneToMany(mappedBy = "hall", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Set<Seat> seats;

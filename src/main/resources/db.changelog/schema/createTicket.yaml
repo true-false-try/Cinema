@@ -14,12 +14,6 @@ databaseChangeLog:
                     primaryKey: true
                     nullable: false
               - column:
-                  name: timeslot_id
-                  type: BIGINT
-                  constraints:
-                    foreignKey: true
-                    nullable: false
-              - column:
                   name: tariff_id
                   type: BIGINT
                   constraints:
@@ -27,6 +21,12 @@ databaseChangeLog:
                     nullable: false
               - column:
                   name: user_id
+                  type: BIGINT
+                  constraints:
+                    foreignKey: true
+                    nullable: false
+              - column:
+                  name: timeslot_id
                   type: BIGINT
                   constraints:
                     foreignKey: true

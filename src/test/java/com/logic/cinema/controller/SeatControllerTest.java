@@ -4,7 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.logic.cinema.dto.SeatDTO;
 import com.logic.cinema.mapper.SeatMapper;
 import com.logic.cinema.model.Hall;
-import com.logic.cinema.model.HallsList;
+import com.logic.cinema.model.HallsName;
 import com.logic.cinema.model.Seat;
 import com.logic.cinema.model.StatusSeatsList;
 import com.logic.cinema.service.SeatService;
@@ -89,13 +89,13 @@ class SeatControllerTest {
 
         hall = Hall.builder()
                 .id(1L)
-                .name(HallsList.RED)
+                .name(HallsName.RED)
                 .seats(setAllSeats)
                 .build();
 
         hallForUpdate = Hall.builder()
                 .id(1L)
-                .name(HallsList.RED)
+                .name(HallsName.RED)
                 .seats(new HashSet<>(List.of(seatForUpdate)))
                 .build();
 

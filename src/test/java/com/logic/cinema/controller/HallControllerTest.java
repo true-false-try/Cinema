@@ -4,7 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.logic.cinema.dto.HallDTO;
 import com.logic.cinema.mapper.HallMapper;
 import com.logic.cinema.model.Hall;
-import com.logic.cinema.model.HallsList;
+import com.logic.cinema.model.HallsName;
 import com.logic.cinema.model.Seat;
 import com.logic.cinema.model.StatusSeatsList;
 import com.logic.cinema.service.HallService;
@@ -53,7 +53,7 @@ class HallControllerTest {
     void init() throws CloneNotSupportedException {
         Hall defaultHall = Hall.builder()
                 .id(1L)
-                .name(HallsList.ORANGE)
+                .name(HallsName.ORANGE)
                 .seats(Set.of(
                         Seat.builder()
                                 .id(1L)
@@ -66,11 +66,11 @@ class HallControllerTest {
 
         hallForUpdate = mapper.toHallDTO(defaultHall.clone());
         hallForUpdate.setId(ID_NOT_NULL);
-        hallForUpdate.setName(HallsList.YELLOW);
+        hallForUpdate.setName(HallsName.YELLOW);
 
         HallDTO hallTwice = mapper.toHallDTO(defaultHall.clone());
         hallTwice.setId(2L);
-        hallTwice.setName(HallsList.WHITE);
+        hallTwice.setName(HallsName.WHITE);
         hallTwice.setSeats( Set.of(Seat.builder()
                 .id(2L)
                 .row(3)
@@ -80,7 +80,7 @@ class HallControllerTest {
 
         HallDTO hallThird = mapper.toHallDTO(defaultHall.clone());
         hallThird.setId(3L);
-        hallThird.setName(HallsList.BLACK);
+        hallThird.setName(HallsName.BLACK);
         hallThird.setSeats( Set.of(Seat.builder()
                 .id(3L)
                 .row(6)
@@ -101,7 +101,7 @@ class HallControllerTest {
                 .contentType(MediaType.APPLICATION_JSON_VALUE))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.jsonPath("$.[0].id").value(1L))
-                .andExpect(MockMvcResultMatchers.jsonPath("$.[0].name").value(HallsList.ORANGE.toString()))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.[0].name").value(HallsName.ORANGE.toString()))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.[0].seats.[0].id").value(1L))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.[0].seats.[0].row").value(1))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.[0].seats.[0].seat").value(1))
@@ -119,21 +119,21 @@ class HallControllerTest {
                 .andExpect(MockMvcResultMatchers.status().isOk())
 
                 .andExpect(MockMvcResultMatchers.jsonPath("$.[0].id").value(1L))
-                .andExpect(MockMvcResultMatchers.jsonPath("$.[0].name").value(HallsList.ORANGE.toString()))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.[0].name").value(HallsName.ORANGE.toString()))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.[0].seats.[0].id").value(1L))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.[0].seats.[0].row").value(1))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.[0].seats.[0].seat").value(1))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.[0].seats.[0].status").value(StatusSeatsList.AVAILABLE.toString()))
 
                 .andExpect(MockMvcResultMatchers.jsonPath("$.[1].id").value(2L))
-                .andExpect(MockMvcResultMatchers.jsonPath("$.[1].name").value(HallsList.WHITE.toString()))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.[1].name").value(HallsName.WHITE.toString()))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.[1].seats.[0].id").value(2L))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.[1].seats.[0].row").value(3))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.[1].seats.[0].seat").value(2))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.[1].seats.[0].status").value(StatusSeatsList.AVAILABLE.toString()))
 
                 .andExpect(MockMvcResultMatchers.jsonPath("$.[2].id").value(3L))
-                .andExpect(MockMvcResultMatchers.jsonPath("$.[2].name").value(HallsList.BLACK.toString()))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.[2].name").value(HallsName.BLACK.toString()))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.[2].seats.[0].id").value(3L))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.[2].seats.[0].row").value(6))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.[2].seats.[0].seat").value(3))
@@ -151,7 +151,7 @@ class HallControllerTest {
                         .accept(MediaType.APPLICATION_JSON))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.jsonPath("$.id").value(1L))
-                .andExpect(MockMvcResultMatchers.jsonPath("$.name").value(HallsList.ORANGE.toString()))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.name").value(HallsName.ORANGE.toString()))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.seats.[0].id").value(1L))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.seats.[0].row").value(1))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.seats.[0].seat").value(1))
@@ -171,7 +171,7 @@ class HallControllerTest {
                         .accept(MediaType.APPLICATION_JSON))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.jsonPath("$.id").value(1L))
-                .andExpect(MockMvcResultMatchers.jsonPath("$.name").value(HallsList.YELLOW.toString()));
+                .andExpect(MockMvcResultMatchers.jsonPath("$.name").value(HallsName.YELLOW.toString()));
 
     }
 
