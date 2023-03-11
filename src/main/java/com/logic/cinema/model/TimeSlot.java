@@ -3,7 +3,6 @@ package com.logic.cinema.model;
 import javax.persistence.*;
 import java.sql.Time;
 import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.Set;
 
 @Entity
@@ -28,7 +27,7 @@ public class TimeSlot {
     @JoinColumn(name = "hall_id")
     private Hall hall;
 
-    @ManyToMany(fetch = FetchType.LAZY, mappedBy = "timeSlot")
+    @ManyToMany(fetch = FetchType.LAZY, mappedBy = "movie_time")
     private Set<Movie> movies;
 
     public TimeSlot(){
