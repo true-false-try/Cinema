@@ -19,7 +19,7 @@ import java.util.NoSuchElementException;
 @RestController
 @RequestMapping("/api/seats")
 @RequiredArgsConstructor
-public class SeatController {
+public class  SeatController {
     private final SeatService seatService;
     @GetMapping
     public List<SeatDTO> allSeats() {

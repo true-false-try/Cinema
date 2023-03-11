@@ -6,4 +6,6 @@ import java.util.List;
 
 public interface TariffService {
     List<Tariff> findAllTariffs();
+    Tariff save(Tariff tariff);
+
 }

@@ -1,0 +1,15 @@
+databaseChangeLog:
+  - changeSet:
+      id: ins_tariffs
+      author: Chekhovskyi
+      changes:
+        - insert:
+            tableName: tariffs
+            columns:
+              - column:
+                  name: type
+                  value: SIMPLE_DAY
+              - column:
+                  name: cost
+                  value: 110.0
+                  

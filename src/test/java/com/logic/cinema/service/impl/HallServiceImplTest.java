@@ -5,7 +5,7 @@ import com.logic.cinema.exeptions.DeleteException;
 import com.logic.cinema.exeptions.UpdateException;
 import com.logic.cinema.mapper.HallMapper;
 import com.logic.cinema.model.Hall;
-import com.logic.cinema.model.HallsList;
+import com.logic.cinema.model.HallsName;
 import com.logic.cinema.model.Seat;
 import com.logic.cinema.model.StatusSeatsList;
 import com.logic.cinema.repository.HallDAO;
@@ -45,8 +45,8 @@ class HallServiceImplTest {
 
 
     private static final Long ID = null;
-    private static final HallsList NAME_FOR_HALL = HallsList.WHITE;
-    private static final HallsList NAME_FOR_UPDATE_HALL = HallsList.ORANGE;
+    private static final HallsName NAME_FOR_HALL = HallsName.WHITE;
+    private static final HallsName NAME_FOR_UPDATE_HALL = HallsName.ORANGE;
     private static Hall hallIdNull;
     private static Hall hallWithId;;
     private static Hall hallForUpdate;

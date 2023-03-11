@@ -1,20 +1,21 @@
 package com.logic.cinema.service.impl;
 
-import com.logic.cinema.repository.TimeslotDAO;
 import com.logic.cinema.model.Timeslot;
+import com.logic.cinema.repository.TimeslotDAO;
 import com.logic.cinema.service.TimeslotService;
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
+import java.util.Optional;
 
 @Service
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class TimeslotServiceImpl implements TimeslotService {
-    private final TimeslotDAO timeslotDAO;
+    private final TimeslotDAO repository;
 
     @Override
-    public List<Timeslot> findAllTimeslots() {
-        return timeslotDAO.findAll();
+    public Optional<Timeslot> findTimeslotByMovieId(Long id) {
+
+        return repository.findByMovieId(id);
     }
 }

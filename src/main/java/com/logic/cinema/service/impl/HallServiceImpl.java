@@ -5,21 +5,20 @@ import com.logic.cinema.exeptions.DeleteException;
 import com.logic.cinema.exeptions.UpdateException;
 import com.logic.cinema.mapper.HallMapper;
 import com.logic.cinema.model.Hall;
-import com.logic.cinema.model.HallsList;
+import com.logic.cinema.model.HallsName;
 import com.logic.cinema.model.Seat;
 import com.logic.cinema.repository.HallDAO;
 import com.logic.cinema.service.HallService;
 import com.logic.cinema.service.SeatService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
-import java.util.NoSuchElementException;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 
 @Service
+@Slf4j
 @RequiredArgsConstructor
 public class HallServiceImpl implements HallService {
     private final HallDAO hallDAO;
@@ -64,7 +63,7 @@ public class HallServiceImpl implements HallService {
 
     @Override
     @Transactional(readOnly = true)
-    public Optional<Hall> findByName(HallsList name) {
+    public Optional<Hall> findByName(HallsName name) {
         return hallDAO.getHallByName(name);
     }
 
@@ -83,13 +82,15 @@ public class HallServiceImpl implements HallService {
         return mapper.toHallDTO(optionalHall.get());
     }
 
+
     /**
      * Convert in DTO methods
      * @return Object DTO or something collection that include Object DTO
      */
     public HallDTO dtoFindById(Long id) {return mapper.toHallDTO(findById(id).get());}
 
-    public HallDTO dtoFindByName(HallsList name) {
+    public HallDTO dtoFindByName(HallsName name) {
         return mapper.toHallDTO(findByName(name).get());
     }
+
 }

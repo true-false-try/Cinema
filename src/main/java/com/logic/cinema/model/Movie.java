@@ -5,12 +5,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.time.LocalTime;
 
 @Entity
@@ -28,6 +23,9 @@ public class Movie {
     @Column(name = "name", length = 128, nullable = false)
     private String name;
 
+    @Column(name = "year", length = 4)
+    private Integer year;
+
     @Column(name = "description")
     private String description;
 
@@ -37,11 +35,9 @@ public class Movie {
     @Column(name = "rating", length = 3, nullable = false)
     private Double rating;
 
-    @Column(name = "type", length = 50, nullable = false)
-    private String type;
-
-    @Column(name = "genres", length = 50, nullable = false)
-    private String genres;
+    @Column(name = "genre", length = 50, nullable = false)
+    @Enumerated(EnumType.STRING)
+    private MovieGenres genre;
 
     @Column(name = "movie_time")
     private LocalTime movie_time;

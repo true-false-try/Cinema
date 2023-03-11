@@ -1,0 +1,42 @@
+databaseChangeLog:
+  - changeSet:
+      id: ins_timeslots
+      author: Chekhovskyi
+      changes:
+        - insert:
+            tableName: timeslots
+            columns:
+              - column:
+                  name: date
+                  value: '10-11-2022'
+              - column:
+                  name: start_time
+                  value: '15:40:32'
+              - column:
+                  name: end_time
+                  value: '18:35:32'
+              - column:
+                  name: movie_id
+                  value: 1
+              - column:
+                  name: hall_id
+                  value: 1
+
+        - insert:
+            tableName: timeslots
+            columns:
+              - column:
+                  name: date
+                  value: '10-11-2022'
+              - column:
+                  name: start_time
+                  value: '19:20:32'
+              - column:
+                  name: end_time
+                  value: '21:05:20'
+              - column:
+                  name: movie_id
+                  value: 2
+              - column:
+                  name: hall_id
+                  value: 2

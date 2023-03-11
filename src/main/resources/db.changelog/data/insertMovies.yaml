@@ -1,0 +1,80 @@
+databaseChangeLog:
+  - changeSet:
+      id: ins_movies
+      author: Chekhovskyi
+      comment: "Create Test Movies"
+      changes:
+        - insert:
+            tableName: movies
+            columns:
+              - column:
+                  name: name
+                  value: "The Godfather"
+              - column:
+                  name: year
+                  value: 1972
+              - column:
+                  name: description
+                  value: "The aging patriarch of an organized crime dynasty in postwar New York City transfers control of his clandestine empire to his reluctant youngest son."
+              - column:
+                  name: min_age
+                  value: 16
+              - column:
+                  name: rating
+                  value: 9.2
+              - column:
+                  name: genre
+                  value: CRIME
+              - column:
+                  name: movie_time
+                  value: '02:55:00'
+        - insert:
+            tableName: movies
+            columns:
+              - column:
+                  name: name
+                  value: "The Dark Knight"
+              - column:
+                  name: year
+                  value: 2008
+              - column:
+                  name: description
+                  value: "When the menace known as the Joker wreaks havoc and chaos on the people of Gotham, Batman must accept one of the greatest psychological and physical tests of his ability to fight injustice."
+              - column:
+                  name: min_age
+                  value: 12
+              - column:
+                  name: rating
+                  value: 9.0
+              - column:
+                  name: genre
+                  value: ACTION
+              - column:
+                  name: movie_time
+                  value: '02:32:10'
+        - insert:
+            tableName: movies
+            columns:
+              - column:
+                  name: name
+                  value: "Fight Club"
+              - column:
+                  name: year
+                  value: 1999
+              - column:
+                  name: description
+                  value: "An insomniac office worker and a devil-may-care soap maker form an underground fight club that evolves into much more."
+              - column:
+                  name: min_age
+                  value: 18
+              - column:
+                  name: rating
+                  value: 8.8
+              - column:
+                  name: genre
+                  value: DRAMA
+              - column:
+                  name: movie_time
+                  value: '02:19:30'
+
+

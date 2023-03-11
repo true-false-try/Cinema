@@ -5,8 +5,7 @@ import com.logic.cinema.exeptions.AddException;
 import com.logic.cinema.exeptions.DeleteException;
 import com.logic.cinema.exeptions.UpdateException;
 import com.logic.cinema.model.Hall;
-import com.logic.cinema.model.HallsList;
-import org.json.JSONObject;
+import com.logic.cinema.model.HallsName;
 import org.postgresql.util.PSQLException;
 
 import java.util.List;
@@ -18,10 +17,10 @@ public interface HallService {
     HallDTO update(Hall hall) throws UpdateException, PSQLException;
     List<HallDTO> findAllHalls();
     Optional<Hall> findById(Long id) throws NoSuchElementException;
-    Optional<Hall> findByName(HallsList name);
+    Optional<Hall> findByName(HallsName name);
     void delete(Long id) throws DeleteException;
 
     HallDTO dtoFindById(Long id);
-    public HallDTO dtoFindByName(HallsList name);
+    HallDTO dtoFindByName(HallsName name);
 
 }

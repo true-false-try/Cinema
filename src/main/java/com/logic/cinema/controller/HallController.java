@@ -6,7 +6,7 @@ import com.logic.cinema.exeptions.AddException;
 import com.logic.cinema.exeptions.DeleteException;
 import com.logic.cinema.exeptions.UpdateException;
 import com.logic.cinema.model.Hall;
-import com.logic.cinema.model.HallsList;
+import com.logic.cinema.model.HallsName;
 import com.logic.cinema.service.HallService;
 import lombok.RequiredArgsConstructor;
 import org.postgresql.util.PSQLException;
@@ -20,7 +20,7 @@ import java.util.NoSuchElementException;
 @RestController
 @RequestMapping("/api/halls")
 @RequiredArgsConstructor
-public class HallController {
+public class  HallController {
     private final HallService hallService;
 
     @GetMapping
@@ -32,8 +32,8 @@ public class HallController {
         return hallService.dtoFindById(id);
     }
 
-    @GetMapping("{name}")
-    public HallDTO findHallById(@PathVariable(value = "name") HallsList name) {
+    @GetMapping("/name/{name}")
+    public HallDTO findHallByName(@PathVariable(value = "name") HallsName name) {
         return hallService.dtoFindByName(name);
     }
 
@@ -77,7 +77,7 @@ public class HallController {
     }
     @ExceptionHandler({NoSuchElementException.class})
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
-    public String getDeleteExceptionMessage(NoSuchElementException exception){
+    public String getNoSuchElementExceptionMessage(NoSuchElementException exception){
         return exception.getMessage();
     }
 
