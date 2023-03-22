@@ -1,7 +1,7 @@
 package com.logic.cinema.repository;
 
 import com.logic.cinema.model.Seat;
-import com.logic.cinema.model.StatusSeatsList;
+import com.logic.cinema.model.constant.StatusSeatsList;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

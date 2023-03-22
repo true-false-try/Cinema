@@ -1,6 +1,6 @@
 package com.logic.cinema.util;
 
-import com.logic.cinema.model.TariffsType;
+import com.logic.cinema.model.constant.TariffsType;
 import lombok.*;
 
 @Getter

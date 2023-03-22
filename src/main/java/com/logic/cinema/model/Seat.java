@@ -13,9 +13,9 @@ import javax.persistence.JoinColumn;
 import javax.persistence.EnumType;
 import javax.persistence.GenerationType;
 import javax.persistence.FetchType;
-import javax.validation.constraints.Digits;
 import javax.validation.constraints.Size;
 
+import com.logic.cinema.model.constant.StatusSeatsList;
 import lombok.Builder;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;

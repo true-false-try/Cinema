@@ -6,7 +6,7 @@ import com.logic.cinema.exeptions.UpdateException;
 import com.logic.cinema.mapper.SeatMapper;
 import com.logic.cinema.model.Hall;
 import com.logic.cinema.model.Seat;
-import com.logic.cinema.model.StatusSeatsList;
+import com.logic.cinema.model.constant.StatusSeatsList;
 import com.logic.cinema.repository.SeatDAO;
 import com.logic.cinema.service.HallService;
 import com.logic.cinema.service.SeatService;

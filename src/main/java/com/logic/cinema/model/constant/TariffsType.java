@@ -1,4 +1,4 @@
-package com.logic.cinema.model;
+package com.logic.cinema.model.constant;
 
 public enum TariffsType {
     BIRTHDAY,

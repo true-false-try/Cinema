@@ -1,5 +1,6 @@
 package com.logic.cinema.model;
 
+import com.logic.cinema.model.constant.TariffsType;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

@@ -10,12 +10,10 @@ import com.logic.cinema.model.HallsName;
 import com.logic.cinema.service.HallService;
 import lombok.RequiredArgsConstructor;
 import org.postgresql.util.PSQLException;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.NoSuchElementException;
 
 @RestController
 @RequestMapping("/api/halls")
@@ -51,36 +49,6 @@ public class  HallController {
     public void deleteHall(@PathVariable(value = "id") Long id) throws DeleteException {
         hallService.delete(id);
     }
-
-    @ExceptionHandler({AddException.class})
-    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
-    public String getAddExceptionMessage(AddException exception){
-        return exception.createJsonMessage(HttpStatus.INTERNAL_SERVER_ERROR.value());
-    }
-
-    @ExceptionHandler({UpdateException.class})
-    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
-    public String getUpdateExceptionMessage(UpdateException exception){
-        return exception.createJsonMessage(HttpStatus.INTERNAL_SERVER_ERROR.value());
-    }
-
-    @ExceptionHandler({PSQLException.class})
-    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
-    public String getPSQLExceptionMessage(PSQLException exception){
-        return exception.getMessage();
-    }
-
-    @ExceptionHandler({DeleteException.class})
-    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
-    public String getDeleteExceptionMessage(DeleteException exception){
-        return exception.createJsonMessage(HttpStatus.INTERNAL_SERVER_ERROR.value());
-    }
-    @ExceptionHandler({NoSuchElementException.class})
-    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
-    public String getNoSuchElementExceptionMessage(NoSuchElementException exception){
-        return exception.getMessage();
-    }
-
 
 
 }

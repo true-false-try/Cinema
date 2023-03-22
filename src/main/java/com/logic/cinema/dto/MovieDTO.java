@@ -1,6 +1,6 @@
 package com.logic.cinema.dto;
 
-import com.logic.cinema.model.MovieGenres;
+import com.logic.cinema.model.constant.MovieGenres;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;

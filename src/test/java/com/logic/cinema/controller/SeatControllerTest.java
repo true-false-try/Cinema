@@ -6,7 +6,7 @@ import com.logic.cinema.mapper.SeatMapper;
 import com.logic.cinema.model.Hall;
 import com.logic.cinema.model.HallsName;
 import com.logic.cinema.model.Seat;
-import com.logic.cinema.model.StatusSeatsList;
+import com.logic.cinema.model.constant.StatusSeatsList;
 import com.logic.cinema.service.SeatService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

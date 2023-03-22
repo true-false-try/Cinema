@@ -5,6 +5,7 @@ import com.logic.cinema.exeptions.FindException;
 import com.logic.cinema.exeptions.UpdateException;
 import com.logic.cinema.mapper.SeatMapper;
 import com.logic.cinema.model.*;
+import com.logic.cinema.model.constant.StatusSeatsList;
 import com.logic.cinema.repository.TicketDAO;
 import com.logic.cinema.service.*;
 import com.logic.cinema.util.JsonCreateTicket;

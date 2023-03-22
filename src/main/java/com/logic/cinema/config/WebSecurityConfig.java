@@ -12,8 +12,11 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 
-import static com.logic.cinema.config.constant.SecurityConstant.*;
-import static com.logic.cinema.model.Role.*;
+import static com.logic.cinema.config.constant.SecurityConstant.ALL_API_PATH;
+import static com.logic.cinema.model.constant.Permission.ALL_READ;
+import static com.logic.cinema.model.constant.Permission.ALL_WRITE;
+import static com.logic.cinema.model.constant.Role.ADMIN;
+import static com.logic.cinema.model.constant.Role.CONSUMER;
 
 @Configuration
 @EnableWebSecurity
@@ -23,25 +26,23 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception{
 
         http
+                .csrf().disable()
                 .authorizeRequests()
-                .mvcMatchers(HttpMethod.GET, API_PATH_TO_MOVIES.getName()).hasAnyRole(CONSUMER.name(), MODERATOR.name())
-                .mvcMatchers(HttpMethod.POST, API_PATH_TO_TICKETS.getName()).hasAnyRole(CONSUMER.name(), CASHIER.name())
-                .mvcMatchers(HttpMethod.POST, API_PATH_TO_MOVIES.getName()).hasRole(MODERATOR.name())
-                .mvcMatchers(HttpMethod.PUT, API_PATH_TO_MOVIES.getName()).hasRole(MODERATOR.name())
-                .mvcMatchers(HttpMethod.GET, API_PATH_TO_TICKETS.getName()).hasAnyRole(CONSUMER.name(), CASHIER.name())
-                .mvcMatchers(HttpMethod.DELETE, API_PATH_TO_TICKETS.getName()).hasRole(SUPPORT_L1.name())
-                .mvcMatchers(HttpMethod.POST, API_PATH_TO_HALLS.getName()).hasRole(SUPPORT_L2.name())
+                /*.mvcMatchers("/dashboard").authenticated()*/
 
-                //Admin
-                .mvcMatchers(HttpMethod.GET, ALL_API_PATH.getName()).hasRole(ADMIN.name())
-                .mvcMatchers(HttpMethod.POST, ALL_API_PATH.getName()).hasRole(ADMIN.name())
-                .mvcMatchers(HttpMethod.PUT, ALL_API_PATH.getName()).hasRole(ADMIN.name())
-                .mvcMatchers(HttpMethod.DELETE, ALL_API_PATH.getName()).hasRole(ADMIN.name())
+                .mvcMatchers(HttpMethod.GET, ALL_API_PATH.getName()).hasAuthority(ALL_READ.getPermission())
+                .mvcMatchers(HttpMethod.POST, ALL_API_PATH.getName()).hasAuthority(ALL_WRITE.getPermission())
+                .mvcMatchers(HttpMethod.PUT, ALL_API_PATH.getName()).hasAuthority(ALL_WRITE.getPermission())
+                .mvcMatchers(HttpMethod.DELETE, ALL_API_PATH.getName()).hasAuthority(ALL_WRITE.getPermission())
                 .anyRequest()
                 .authenticated()
                 .and()
-                .csrf().disable()
                 .httpBasic();
+
+                /*.and().formLogin().loginPage("/login")
+                .defaultSuccessUrl("/dashboard").failureForwardUrl("/login?error=true").permitAll()
+                .and().logout().logoutSuccessUrl("/login?logout=true").invalidateHttpSession(true).permitAll()*/
+
 
     }
 
@@ -52,32 +53,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 User.builder()
                         .username("consumer")
                         .password(passwordEncoder().encode("qwerty"))
-                        .roles(CONSUMER.name())
-                        .build(),
-                User.builder()
-                        .username("moderator")
-                        .password(passwordEncoder().encode("qwerty"))
-                        .roles(MODERATOR.name())
-                        .build(),
-                User.builder()
-                        .username("cashier")
-                        .password(passwordEncoder().encode("qwerty"))
-                        .roles(CASHIER.name())
-                        .build(),
-                User.builder()
-                        .username("support_l1")
-                        .password(passwordEncoder().encode("qwerty"))
-                        .roles(SUPPORT_L1.name())
-                        .build(),
-                User.builder()
-                        .username("support_l2")
-                        .password(passwordEncoder().encode("qwerty"))
-                        .roles(SUPPORT_L2.name())
+                        .authorities(CONSUMER.getAuthorities())
                         .build(),
                 User.builder()
                         .username("admin")
                         .password(passwordEncoder().encode("qwerty"))
-                        .roles(ADMIN.name())
+                        .authorities(ADMIN.getAuthorities())
                         .build());
 
     }
