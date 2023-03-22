@@ -10,6 +10,7 @@ import lombok.AllArgsConstructor;
 import org.postgresql.util.PSQLException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -30,15 +31,18 @@ public class MovieController {
     @GetMapping("/name/{name}")
     public MovieDTO findMovieByName(@PathVariable(name = "name") String name){ return movieService.dtoFindByName(name); }
     @PostMapping
+    @PreAuthorize("hasAuthority('all:write')")
     public ResponseEntity<MovieDTO> createMovie(@RequestBody Movie movie) throws SaveException{
         return ResponseEntity.ok().body(movieService.save(movie));
     }
     @PutMapping
+    @PreAuthorize("hasAuthority('all:write')")
     public ResponseEntity<MovieDTO> updateMovie(@RequestBody Movie movie) throws UpdateException, PSQLException {
         return ResponseEntity.ok().body(movieService.update(movie));
     }
 
     @DeleteMapping("{id}")
+    @PreAuthorize("hasAuthority('all:write')")
     public void deleteMovie(@PathVariable(value = "id") Long id) throws DeleteException {
         movieService.delete(id);
     }

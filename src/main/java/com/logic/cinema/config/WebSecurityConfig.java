@@ -2,7 +2,7 @@ package com.logic.cinema.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.http.HttpMethod;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
@@ -12,14 +12,12 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 
-import static com.logic.cinema.config.constant.SecurityConstant.ALL_API_PATH;
-import static com.logic.cinema.model.constant.Permission.ALL_READ;
-import static com.logic.cinema.model.constant.Permission.ALL_WRITE;
 import static com.logic.cinema.model.constant.Role.ADMIN;
 import static com.logic.cinema.model.constant.Role.CONSUMER;
 
 @Configuration
 @EnableWebSecurity
+@EnableGlobalMethodSecurity(prePostEnabled = true)
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
@@ -29,11 +27,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .csrf().disable()
                 .authorizeRequests()
                 /*.mvcMatchers("/dashboard").authenticated()*/
+                .antMatchers("/").permitAll()
 
-                .mvcMatchers(HttpMethod.GET, ALL_API_PATH.getName()).hasAuthority(ALL_READ.getPermission())
-                .mvcMatchers(HttpMethod.POST, ALL_API_PATH.getName()).hasAuthority(ALL_WRITE.getPermission())
-                .mvcMatchers(HttpMethod.PUT, ALL_API_PATH.getName()).hasAuthority(ALL_WRITE.getPermission())
-                .mvcMatchers(HttpMethod.DELETE, ALL_API_PATH.getName()).hasAuthority(ALL_WRITE.getPermission())
                 .anyRequest()
                 .authenticated()
                 .and()

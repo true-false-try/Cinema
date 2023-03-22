@@ -11,6 +11,7 @@ import com.logic.cinema.service.HallService;
 import lombok.RequiredArgsConstructor;
 import org.postgresql.util.PSQLException;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -20,7 +21,6 @@ import java.util.List;
 @RequiredArgsConstructor
 public class  HallController {
     private final HallService hallService;
-
     @GetMapping
     public List<HallDTO> allHalls(){
         return hallService.findAllHalls();
@@ -31,21 +31,25 @@ public class  HallController {
     }
 
     @GetMapping("/name/{name}")
+    @PreAuthorize("hasAuthority('all:read')")
     public HallDTO findHallByName(@PathVariable(value = "name") HallsName name) {
         return hallService.dtoFindByName(name);
     }
 
     @PostMapping
+    @PreAuthorize("hasAuthority('all:write')")
     public ResponseEntity<HallDTO> addHall(@RequestBody Hall hall) throws AddException {
         return ResponseEntity.ok().body(hallService.save(hall));
     }
 
     @PutMapping
+    @PreAuthorize("hasAuthority('all:write')")
     public ResponseEntity<HallDTO> updateHall(@RequestBody Hall hall) throws UpdateException, PSQLException {
         return ResponseEntity.ok().body(hallService.update(hall));
     }
 
     @DeleteMapping("{id}")
+    @PreAuthorize("hasAuthority('all:write')")
     public void deleteHall(@PathVariable(value = "id") Long id) throws DeleteException {
         hallService.delete(id);
     }

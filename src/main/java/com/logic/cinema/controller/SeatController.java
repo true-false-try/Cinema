@@ -9,6 +9,7 @@ import com.logic.cinema.service.SeatService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -22,27 +23,32 @@ import java.util.NoSuchElementException;
 public class  SeatController {
     private final SeatService seatService;
     @GetMapping
+    @PreAuthorize("hasAnyAuthority('all:read')")
     public List<SeatDTO> allSeats() {
         return seatService.dtoFindAllSeats();
     }
 
     @GetMapping("{id}")
+    @PreAuthorize("hasAuthority('all:read')")
     public SeatDTO findSeatById(@PathVariable(value = "id") Long id) {
         return seatService.dtoFindById(id);
     }
 
     @GetMapping("{id}/hall")
+    @PreAuthorize("hasAuthority('all:read')")
     public List<SeatDTO> findSeatByHallId(@PathVariable(value = "id") Long id) {
         return new ArrayList<>(seatService.dtoFindSeatsByHallId(id));
     }
 
     @PostMapping
+    @PreAuthorize("hasAuthority('all:write')")
     public ResponseEntity<List<SeatDTO>> addSeats(@RequestBody Hall hall) throws UpdateException {
         return ResponseEntity.ok(
                 new ArrayList<>(seatService.save(hall)));
     }
 
     @PutMapping("{id}")
+    @PreAuthorize("hasAuthority('all:write')")
     public ResponseEntity<List<SeatDTO>> updateSeat(@PathVariable(value = "id") Long id,
                                                     @RequestBody Hall hall) throws UpdateException {
         return ResponseEntity.ok(
@@ -50,6 +56,7 @@ public class  SeatController {
     }
 
     @DeleteMapping("{id}")
+    @PreAuthorize("hasAuthority('all:write')")
     public void deleteSeat(@PathVariable(value = "id") Long id) throws DeleteException {
         seatService.delete(id);
 

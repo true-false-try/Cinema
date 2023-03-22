@@ -8,6 +8,7 @@ import com.logic.cinema.util.JsonCreateTicket;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.websocket.server.PathParam;
@@ -24,16 +25,19 @@ public class TicketController {
     private final TicketService ticketService;
 
     @GetMapping
+    @PreAuthorize("hasAnyAuthority('all:read')")
     public List<Ticket> allTickets(){
         return ticketService.findAllTicket();
     }
     // Use PathParam -->
     @GetMapping("free-seats")
+    @PreAuthorize("hasAuthority('all:read')")
     public Set<SeatDTO> findFreeSeats(@PathParam("movie") String movieName) throws FindException {
         return ticketService.findAllFreeSeats(movieName);
     }
 
     @PostMapping("create")
+    @PreAuthorize("hasAuthority('all:write')")
     public Ticket createTicket(@RequestBody JsonCreateTicket jsonCreateTicket) throws FindException {
             return ticketService.createTicket(jsonCreateTicket);
     }
