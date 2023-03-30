@@ -4,6 +4,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.User;
@@ -26,19 +27,25 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http
                 .csrf().disable()
                 .authorizeRequests()
-                /*.mvcMatchers("/dashboard").authenticated()*/
-                .antMatchers("/").permitAll()
+                .mvcMatchers("/auth/success").authenticated()
 
                 .anyRequest()
                 .authenticated()
                 .and()
-                .httpBasic();
+                .formLogin()
+                .loginPage("/auth/login").permitAll()
+                .defaultSuccessUrl("/auth/success")
+                .failureUrl("/auth/failure").permitAll();
 
                 /*.and().formLogin().loginPage("/login")
                 .defaultSuccessUrl("/dashboard").failureForwardUrl("/login?error=true").permitAll()
                 .and().logout().logoutSuccessUrl("/login?logout=true").invalidateHttpSession(true).permitAll()*/
+    }
 
-
+    @Override
+    public void configure(WebSecurity web) {
+        web.ignoring()
+                .antMatchers("/css/**");
     }
 
     @Bean

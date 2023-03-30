@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <title>Login Form</title>
+    <link rel="stylesheet" type="'text/css'" href="../static/css/login.css" th:href="@{/css/login.css}">
+  </head>
+  <body>
+    <div class="container">
+      <h2>Login</h2>
+      <form class="form-sign_in" method="post" th:action="@{/auth/login} ">
+        <label for="username">Username:</label>
+        <input type="text" id="username" name="username" placeholder="Enter username" required>
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password" placeholder="Enter password" required>
+        <button type="submit" value="Login">Login</button>
+      </form>
+    </div>
+  </body>
+</html>

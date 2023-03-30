@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Success!!!</title>
+</head>
+<body>
+    <div th:with="id=${#session.id}">
+        <h1 th:text="'Congrats!! ' +${id} + ' Your registration has been successful'"></h1>
+    </div>
+</body>
+</html>
