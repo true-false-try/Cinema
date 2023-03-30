@@ -12,6 +12,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 import static com.logic.cinema.model.constant.Role.ADMIN;
 import static com.logic.cinema.model.constant.Role.CONSUMER;
@@ -35,11 +36,17 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .formLogin()
                 .loginPage("/auth/login").permitAll()
                 .defaultSuccessUrl("/auth/success")
-                .failureUrl("/auth/failure").permitAll();
+                .failureUrl("/auth/failure").permitAll()
+                .and()
+                /*This part say that we should take only POST method (default was GET),
+                and closed session clear auth dates and delete cookies (session id) and redirect on login page*/
+                .logout()
+                .logoutRequestMatcher(new AntPathRequestMatcher("/auth/logout", "POST"))
+                .invalidateHttpSession(true)
+                .clearAuthentication(true)
+                .deleteCookies("JSESSIONID")
+                .logoutSuccessUrl("/auth/login");
 
-                /*.and().formLogin().loginPage("/login")
-                .defaultSuccessUrl("/dashboard").failureForwardUrl("/login?error=true").permitAll()
-                .and().logout().logoutSuccessUrl("/login?logout=true").invalidateHttpSession(true).permitAll()*/
     }
 
     @Override
