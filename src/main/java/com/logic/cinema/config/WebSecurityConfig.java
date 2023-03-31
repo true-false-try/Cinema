@@ -26,7 +26,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception{
 
         http
-                .csrf().disable()
                 .authorizeRequests()
                 .mvcMatchers("/auth/success").authenticated()
 
@@ -36,7 +35,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .formLogin()
                 .loginPage("/auth/login").permitAll()
                 .defaultSuccessUrl("/auth/success")
-                .failureUrl("/auth/failure").permitAll()
+                .failureUrl("/auth/failure")
                 .and()
                 /*This part say that we should take only POST method (default was GET),
                 and closed session clear auth dates and delete cookies (session id) and redirect on login page*/
@@ -44,8 +43,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .logoutRequestMatcher(new AntPathRequestMatcher("/auth/logout", "POST"))
                 .invalidateHttpSession(true)
                 .clearAuthentication(true)
-                .deleteCookies("JSESSIONID")
-                .logoutSuccessUrl("/auth/login");
+                .deleteCookies("JSESSIONID");
 
     }
 

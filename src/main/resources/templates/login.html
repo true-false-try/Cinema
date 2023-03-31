@@ -12,6 +12,7 @@
         <input type="text" id="username" name="username" placeholder="Enter username" required>
         <label for="password">Password:</label>
         <input type="password" id="password" name="password" placeholder="Enter password" required>
+        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
         <button type="submit" value="Login">Login</button>
       </form>
     </div>

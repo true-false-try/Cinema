@@ -8,7 +8,7 @@
     <div th:with="id=${#session.id}">
         <h1 th:text="'Congrats!! ' +${id} + ' Your registration has been successful'"></h1>
     </div>
-    <form action="/auth/logout" method="POST">
+    <form th:action="@{/auth/logout}" method="POST">
         <button type="submit">Logout</button>
     </form>
 
